@@ -54,7 +54,7 @@ describe('CycleSpan - Render', () => {
 		const secondParagraph = 'Another paragraph - wow ';
 		const secondSectionKey = '1';
 
-		const text = '\t' + firstParagraph + '\n\t' + secondParagraph;
+		const text = '\t' + firstParagraph + '\n\t' + secondParagraph + '\r';
 		renderer.render(<CycleSpan text={ text } />);
 		const output = renderer.getRenderOutput();
 		expect(output.props.children).toEqual([
