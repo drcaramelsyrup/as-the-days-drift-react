@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import TestRenderer from 'react-test-renderer';
 import Passage from './Passage';
-import CycleSpan from './CycleSpan';
+import CycleSpanList from './CycleSpanList';
 import data from './test_passage.json';
 
 describe('Passage - Smoke', () => {
@@ -28,17 +28,16 @@ describe('Passage - Render', () => {
 		renderer.unmount();
 	});
 
-	const makeExpectedCyclingSpan = (cycleId, actions, conditions, text, keyNum = 0) => {
-		return <CycleSpan key={ 'cyclespan' + keyNum } cycle={
-			{ 
-				cycle_id: cycleId, 
-				data: [{
-					actions: actions,
-					conditions: conditions,
-					text: text
-				}]
+	const makeExpectedCycleSpanList = (id, actions, conditionals, cycles, text) => {
+		return <CycleSpanList data={
+			{
+				actions: actions,
+				conditionals: conditionals,
+				cycles: cycles,
+				id: id,
+				text: text
 			}
-		} />
+		}/>
 	}
 
 	it('renders as a div container', () => {
@@ -49,83 +48,16 @@ describe('Passage - Render', () => {
 
 	it('renders with a simple passage id and text', () => {
 		let text = 'test text';
+		const pid = 215; 
 		const dummyPassage = {
-			pid: 215,
+			pid: pid,
 			text: text 
 		};
 
 		renderer.render(<Passage data={ dummyPassage } />);
 		const output = renderer.getRenderOutput();
 		expect(output.props.children).toEqual(
-			[ makeExpectedCyclingSpan(null, null, null, text) ]);
-	});
-
-	it('renders a simple cycling link', () => {
-		const textBeforeLink = 'test before ';
-		const testLinkText = 'this is a cycling link';
-		const textAfterLink = ' test after';
-		const cycleId = '_cycle_test';
-
-		const dummyPassage = {
-			pid: 0,
-			cycles: {
-				[cycleId]: [
-					{
-						actions: null,
-						conditions: null,
-						text: testLinkText
-					}
-				]
-			},
-			text: textBeforeLink + '_cycle_test' + textAfterLink
-		};
-
-		renderer.render(<Passage data={ dummyPassage } />);
-		const output = renderer.getRenderOutput();
-
-		let spanIdx = 0;
-		expect(output.props.children).toEqual([
-			makeExpectedCyclingSpan(null, null, null, textBeforeLink, spanIdx++),
-			makeExpectedCyclingSpan(cycleId, null, null, testLinkText, spanIdx++),
-			makeExpectedCyclingSpan(null, null, null, textAfterLink, spanIdx++)
-		]);
-	});
-
-	it('renders a conditional cycling link', () => {
-		const cycleId = '_cycle_conditional_test';
-		const actions = {
-			romantic: '1',
-			complacent: '2'
-		};
-		const conditions = {
-			neuroticism: {
-				type: '<',
-				val: '5'
-			}
-		};
-		const testText = 'test render';
-
-		const dummyPassage = {
-			pid: 0,
-			cycles: {
-				[cycleId]: [
-					{
-						actions: actions,
-						conditions: conditions,
-						text: testText
-					}
-				]
-			},
-			text: cycleId
-		};
-
-		renderer.render(<Passage data={ dummyPassage } />);
-		const output = renderer.getRenderOutput();
-
-		const spanIdx = 0;
-		expect(output.props.children).toEqual([
-			makeExpectedCyclingSpan(cycleId, actions, conditions, testText, spanIdx)
-		]);
+			makeExpectedCycleSpanList(pid, null, null, null, text));
 	});
 
 	it('renders with a complete data passage', () => {

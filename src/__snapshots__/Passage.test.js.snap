@@ -2,20 +2,22 @@
 
 exports[`Passage - Render renders with a complete data passage 1`] = `
 <div>
-  <span
-    className="cycle"
-  />
-  <span
-    className="cycle"
-  />
-  <span
-    className="cycle"
-  />
-  <span
-    className="cycle"
-  />
-  <span
-    className="cycle"
-  />
+  <div>
+    <span
+      className="cycle"
+    />
+    <span
+      className="cycle"
+    />
+    <span
+      className="cycle"
+    />
+    <span
+      className="cycle"
+    />
+    <span
+      className="cycle"
+    />
+  </div>
 </div>
 `;
