@@ -62,9 +62,10 @@ const makeCycle = (cycleId, ...dataEntries) => {
   };
 }
 
-const makeCycleData = (text, actions = null) => {
+const makeCycleData = (text, actions = null, conditions = null) => {
   return {
     actions: actions,
+    conditions: conditions,
     text: text
   };
 }
