@@ -28,15 +28,20 @@ describe('CycleSpanList - Render', () => {
 		renderer.unmount();
 	});
 
-	const makeExpectedCyclingSpan = (cycleId, actions, conditions, text, keyNum = 0) => {
+	const makeExpectedCycleData = (actions, conditions, text) => {
+		return {
+			actions: actions,
+			conditions: conditions,
+			text: text
+		};
+	}
+
+	const makeExpectedCycleSpan = (cycleId, cycleIdx, keyNum, ...data) => {
 		return <CycleSpan key={ 'cyclespan' + keyNum } cycle={
 			{ 
 				cycle_id: cycleId, 
-				data: [{
-					actions: actions,
-					conditions: conditions,
-					text: text
-				}]
+				cycle_idx: cycleIdx,
+				data: [...data]
 			}
 		} />
 	}
@@ -55,8 +60,10 @@ describe('CycleSpanList - Render', () => {
 
 		renderer.render(<CycleSpanList data={ dummyPassageData } />);
 		const output = renderer.getRenderOutput();
+		const spanIdx = 0;
 		expect(output.props.children).toEqual(
-			[ makeExpectedCyclingSpan(null, null, null, text) ]);
+			[ makeExpectedCycleSpan(null, null, spanIdx,
+				makeExpectedCycleData(null, null, text)) ]);
 	});
 
 	it('renders a simple cycling link', () => {
@@ -75,22 +82,64 @@ describe('CycleSpanList - Render', () => {
 					}
 				]
 			},
-			text: textBeforeLink + '_cycle_test' + textAfterLink
+			text: textBeforeLink + cycleId + textAfterLink
 		};
 
 		renderer.render(<CycleSpanList data={ dummyPassageData } />);
 		const output = renderer.getRenderOutput();
 
 		let spanIdx = 0;
+		const cycleIdx = 0;
 		expect(output.props.children).toEqual([
-			makeExpectedCyclingSpan(null, null, null, textBeforeLink, spanIdx++),
-			makeExpectedCyclingSpan(cycleId, null, null, testLinkText, spanIdx++),
-			makeExpectedCyclingSpan(null, null, null, textAfterLink, spanIdx++)
+			makeExpectedCycleSpan(null, null, spanIdx++,
+				makeExpectedCycleData(null, null, textBeforeLink)),
+			makeExpectedCycleSpan(cycleId, cycleIdx, spanIdx++,
+				makeExpectedCycleData(null, null, testLinkText)),
+			makeExpectedCycleSpan(null, null, spanIdx++,
+				makeExpectedCycleData(null, null, textAfterLink))
 		]);
 	});
 
-	it('renders a conditional cycling link', () => {
-		const cycleId = '_cycle_conditional_test';
+	it('renders a cycling link and can swap between cycles', () => {
+		const firstLinkText = 'this is a cycling link';
+		const secondLinkText = 'this is the second cycling link';
+		const cycleId = '_cycle_test';
+		const cycleIdx = 1;
+
+		const dummyPassageData = {
+			cycles: {
+				[cycleId]: [{
+					actions: null,
+					conditions: null,
+					text: firstLinkText
+				}, {
+					actions: null,
+					conditions: null,
+					text: secondLinkText
+				}]
+			},
+			text: cycleId
+		};
+
+		renderer.render(<CycleSpanList data={ dummyPassageData } inventory={
+			{
+				cycles: {
+					[cycleId]: cycleIdx
+				}
+			}
+		} />);
+		const output = renderer.getRenderOutput();
+
+		const spanIdx = 0;
+		expect(output.props.children).toEqual([
+			makeExpectedCycleSpan(cycleId, cycleIdx, spanIdx, 
+				makeExpectedCycleData(null, null, firstLinkText),
+				makeExpectedCycleData(null, null, secondLinkText))
+		]);
+	});
+
+	describe('Conditions', () => {
+		const cycleId = '_cycle_condition_test';
 		const actions = {
 			romantic: '1',
 			complacent: '2'
@@ -101,8 +150,8 @@ describe('CycleSpanList - Render', () => {
 				val: '5'
 			}
 		};
+		const conditionText = 'test condition';
 		const testText = 'test render';
-
 		const dummyPassageData = {
 			pid: 0,
 			cycles: {
@@ -110,6 +159,11 @@ describe('CycleSpanList - Render', () => {
 					{
 						actions: actions,
 						conditions: conditions,
+						text: conditionText
+					},
+					{
+						actions: actions,
+						conditions: null,
 						text: testText
 					}
 				]
@@ -117,13 +171,45 @@ describe('CycleSpanList - Render', () => {
 			text: cycleId
 		};
 
-		renderer.render(<CycleSpanList data={ dummyPassageData } />);
-		const output = renderer.getRenderOutput();
-
+		const conditionalCycleIdx = 0;
+		const nonconditionalCycleIdx = 1;
 		const spanIdx = 0;
-		expect(output.props.children).toEqual([
-			makeExpectedCyclingSpan(cycleId, actions, conditions, testText, spanIdx)
-		]);
+
+		const spanWithExpectedIdx = (cycleIdx) => {
+			return makeExpectedCycleSpan(
+				cycleId,
+				cycleIdx,
+				spanIdx,
+				makeExpectedCycleData(
+					actions, conditions, conditionText),
+				makeExpectedCycleData(
+					actions, null, testText));
+		}
+
+		it('does not render a span with conditions without an inventory', () => {
+			renderer.render(<CycleSpanList data={ dummyPassageData } />);
+			const output = renderer.getRenderOutput();
+			expect(output.props.children).toEqual(
+				[ spanWithExpectedIdx(nonconditionalCycleIdx) ]);
+		});
+
+		it('does not render a span with conditions when unsatisfied', () => {
+			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={
+				{ neuroticism: 5 }
+			} />);
+			const outputNotSatisfied = renderer.getRenderOutput();
+			expect(outputNotSatisfied.props.children).toEqual(
+				[ spanWithExpectedIdx(nonconditionalCycleIdx) ]);
+		});
+
+		it('renders a span with conditions when satisfied', () => {
+			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={
+				{ neuroticism: 3 }
+			} />);
+			const outputSatisfied = renderer.getRenderOutput();
+			expect(outputSatisfied.props.children).toEqual(
+				[ spanWithExpectedIdx(conditionalCycleIdx) ]);
+		});
 	});
 
 	it('renders with a complete data passage', () => {

@@ -3,16 +3,18 @@ import CycleSpan from './CycleSpan';
 
 const CycleSpanList = (props) => {
 	return <div>{
-    	props.data != null && getCycleSpans(props.data)
+    	props.data != null && getCycleSpans(
+    		props.data, 
+    		props.inventory)
   	}</div>;
 }
 
-const preprocessData = (jsonData) => {
+const preprocessData = (jsonData, inventory = {}) => {
   const textList = [];
 
   // TODO: more graceful way to check for properties?
   if (jsonData.cycles == null)
-    return [ makeCycle(null, makeCycleData(jsonData.text)) ];
+    return [ makeCycle(null, null, makeCycleData(jsonData.text)) ];
 
   const cycleIds = Object.keys(jsonData.cycles).sort((a, b) => {
     return jsonData.text.indexOf(a) > jsonData.text.indexOf(b);
@@ -21,6 +23,7 @@ const preprocessData = (jsonData) => {
   const isValidIndex = (idx) => {
     return idx >= 0 && idx < cycleIds.length;
   }
+
   return cycleIds.reduce((acc, id, idx) => {
 
     // Start at the beginning or at the last cycle id position.
@@ -45,19 +48,42 @@ const preprocessData = (jsonData) => {
     const toConcat = [];
 
     if (before.length > 0)
-      toConcat.push(makeCycle(null, makeCycleData(before)));
-    toConcat.push(makeCycle(id, ...jsonData.cycles[id]));
+      toConcat.push(makeCycle(null, null, makeCycleData(before)));
+
+  	const cycleData = jsonData.cycles[id];
+    toConcat.push(makeCycle(id, getCycleIdx(id, cycleData, inventory), ...cycleData));
+
     if (after.length > 0)
-      toConcat.push(makeCycle(null, makeCycleData(after)));
+      toConcat.push(makeCycle(null, null, makeCycleData(after)));
 
     return acc.concat(toConcat);
 
   }, []);
 }
 
-const makeCycle = (cycleId, ...dataEntries) => {
+const getCycleIdx = (cycleId, cycleData = [], inventory = {}) => {
+	const desiredIdx = inventory.cycles != null ? inventory.cycles[cycleId] : 0;
+
+	// Make sure that we have a valid cycle index.
+	// Starting from the desired idx...
+	for (let i = desiredIdx; i < cycleData.length; ++i) {
+		const datum = cycleData[i];
+		if (matchesQuery(datum.conditions, inventory))
+			return i;
+	}
+	for (let j = 0; j < desiredIdx; ++j) {
+		const datum = cycleData[j];
+		if (matchesQuery(datum.conditions, inventory))
+			return j;
+	}
+
+	return -1;
+}
+
+const makeCycle = (cycleId, cycleIdx, ...dataEntries) => {
   return {
     cycle_id: cycleId,
+    cycle_idx: cycleIdx,
     data: [ ...dataEntries ]
   };
 }
@@ -70,19 +96,60 @@ const makeCycleData = (text, actions = null, conditions = null) => {
   };
 }
 
-const getCycleSpans = (data) => {
+const getCycleSpans = (data, inventory = {}) => {
 
   // TODO: bad practice to use idx in a component array
-  const cycleArray = preprocessData(data);
+  const cycleArray = preprocessData(data, inventory);
   return cycleArray.reduce((acc, cycle, idx) => {
     return acc.concat([ <CycleSpan key={ 'cyclespan' + idx } cycle={ cycle } /> ]);
   }, []);
 
 }
 
+const matchesQuery = (conditions = {}, variables = {}) => {
+	// No conditions automatically matches,
+	// but nothing to match against fails against something to match.
+	if (conditions == null)
+		return true;
+	if (variables == null)
+		return false;
+
+	return Object.keys(conditions).reduce((isFulfilled, conditionId) => {
+
+		const { type, val } = conditions[conditionId];
+		const cmpVal = variables[conditionId];
+		if (cmpVal == null)
+			return false;
+
+		switch (type) {
+			case '>':
+				return isFulfilled && cmpVal > val;
+			case '<':
+				return isFulfilled && cmpVal < val;
+			case '>=':
+				return isFulfilled && cmpVal >= val;
+			case '<=':
+				return isFulfilled && cmpVal <= val;
+			case 'is':
+			case '=':
+			default:
+				return isFulfilled && cmpVal === val;
+		}
+
+		return false;
+
+	}, true);
+}
+
+// Callback to return updated inventory when advancing cycle
+const handleNextCycle = (cycle_id, cycle_idx, inventory) => {
+	const newInventory = inventory.acc([]);
+	newInventory.cycle_id = cycle_idx;
+	return newInventory;
+}
+
 const createCycleSpan = (text, cycle = []) => {
   return <CycleSpan cycle={ cycle }/>;
 }
-
 
 export default CycleSpanList;
