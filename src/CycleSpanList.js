@@ -51,7 +51,7 @@ const resolveConditionals = (rawData, conditionals, inventory) => {
 	resolvedData.text = relevantIds.reduce((text, id) => {
 		// TODO: map this to optimize instead of running O(n) find by predicate?
 		const conditionalIdx = conditionals.findIndex((cond) => { return cond.id === id; });
-		const conditionalText = conditionalIdx > 0
+		const conditionalText = conditionalIdx >= 0
 			? conditionals[conditionalIdx].text
 			: '';
 		return resolveTextWithConditional(text, id, conditionalText);
@@ -67,14 +67,18 @@ const preprocessData = (rawData, inventory) => {
 	if (!isValidString(jsonData.text))
 		return [];
 
-	// TODO: more graceful way to check for properties?
-	if (jsonData.cycles == null) {
-		return [ makeCycle(null, null, makeCycleData(jsonData.text)) ];
-	}
+	// Filter out cycles that do not appear and sort by order of appearance.
+	const cycleIds = jsonData.cycles != null
+		? Object.keys(jsonData.cycles)
+			.filter(id => jsonData.text.indexOf(id) >= 0)
+			.sort((a, b) => {
+				return jsonData.text.indexOf(a) > jsonData.text.indexOf(b);
+			})
+		: [];
 
-	const cycleIds = Object.keys(jsonData.cycles).sort((a, b) => {
-		return jsonData.text.indexOf(a) > jsonData.text.indexOf(b);
-	});
+	// Only pure text, no cycles.
+	if (cycleIds.length <= 0)
+		return [ makeCycle(null, null, makeCycleData(jsonData.text)) ];
 
 	const isValidIndex = (idx) => {
 		return idx >= 0 && idx < cycleIds.length;
@@ -82,39 +86,39 @@ const preprocessData = (rawData, inventory) => {
 
 	return cycleIds.reduce((acc, id, idx) => {
 
-	// Start at the beginning or at the last cycle id position.
-	const start = isValidIndex(idx - 1) 
-	? jsonData.text.indexOf(cycleIds[idx - 1]) + cycleIds[idx - 1].length
-	: 0;
-	const end = isValidIndex(idx + 1)
-	? jsonData.text.indexOf(cycleIds[idx + 1])
-	: jsonData.text.length;
+		// Start at the beginning or at the last cycle id position.
+		const start = isValidIndex(idx - 1) 
+			? jsonData.text.indexOf(cycleIds[idx - 1]) + cycleIds[idx - 1].length
+			: 0;
+		const end = isValidIndex(idx + 1)
+			? jsonData.text.indexOf(cycleIds[idx + 1])
+			: jsonData.text.length;
 
-	const position = jsonData.text.indexOf(id);
+		const position = jsonData.text.indexOf(id);
 
-	// Print before and after if it's the first, else print the after.
-	const isFirstId = !isValidIndex(idx - 1);
-	const before = isFirstId
-	? jsonData.text.substr(start, position - start)
-	: '';
+		// Print before and after if it's the first, else print the after.
+		const isFirstId = !isValidIndex(idx - 1);
+		const before = isFirstId
+			? jsonData.text.substr(start, position - start)
+			: '';
 
-	const after = jsonData.text.substr(
-		position + id.length, end - position - id.length);
+		const after = jsonData.text.substr(
+			position + id.length, end - position - id.length);
 
-	const toConcat = [];
+		const toConcat = [];
 
-	if (before.length > 0)
-		toConcat.push(makeCycle(null, null, makeCycleData(before)));
+		if (before.length > 0)
+			toConcat.push(makeCycle(null, null, makeCycleData(before)));
 
-	const cycleData = jsonData.cycles[id];
-	toConcat.push(makeCycle(id, getCycleIdx(id, cycleData, inventory), ...cycleData));
+		const cycleData = jsonData.cycles[id];
+		toConcat.push(makeCycle(id, getCycleIdx(id, cycleData, inventory), ...cycleData));
 
-	if (after.length > 0)
-		toConcat.push(makeCycle(null, null, makeCycleData(after)));
+		if (after.length > 0)
+			toConcat.push(makeCycle(null, null, makeCycleData(after)));
 
-	return acc.concat(toConcat);
+		return acc.concat(toConcat);
 
-}, []);
+	}, []);
 }
 
 const getCycleIdx = (cycleId, cycleData, inventory) => {
@@ -160,8 +164,6 @@ const matchesQuery = (conditions, variables) => {
 	// but nothing to match against fails against something to match.
 	if (conditions == null)
 		return true;
-	if (variables == null)
-		return false;
 
 	return Object.keys(conditions).reduce((isFulfilled, conditionId) => {
 

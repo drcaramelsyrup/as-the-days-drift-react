@@ -299,6 +299,9 @@ describe('CycleSpanList - Render', () => {
 
 		const firstConditionalId = '_cond_text_0';
 		const secondConditionalId = '_cond_text_1';
+		const firstConditionalText = '\nCome on, Sam\'s already inside. ';
+		const secondConditionalText = 'He continued to fidget.';
+
 		const dummyPassageData = {
 			pid: 0,
 			conditionals: [
@@ -314,7 +317,7 @@ describe('CycleSpanList - Render', () => {
 		                }
 		            },
 		            id: '_cond_text_0',
-		            text: '\nCome on, Sam\'s already inside. '
+		            text: firstConditionalText
 		        },
 		        {
 		            conditions: {
@@ -328,7 +331,7 @@ describe('CycleSpanList - Render', () => {
 		                }
 		            },
 		            id: '_cond_text_1',
-		            text: 'He continued to fidget.'
+		            text: secondConditionalText
 		        }
 		    ],
 			cycles: {
@@ -350,7 +353,20 @@ describe('CycleSpanList - Render', () => {
 			expect(output.props.children).toEqual([]);
 		});
 
-		it('renders a conditional text block when satisfied');
+		it('renders a conditional text block when satisfied', () => {
+			const inventory = { 
+				romantic: 6, complacent: 9, 
+				partner: 'sam', var_nervous_habit: 'fidgeting' 
+			};
+			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			const output = renderer.getRenderOutput();
+			const spanIdx = 0;
+			expect(output.props.children).toEqual([
+				makeExpectedCycleSpan(null, null, spanIdx,
+					makeExpectedCycleData(null, null, firstConditionalText))
+			])
+		});
+
 		it('renders a cycle span inside a conditional text block');
 	});
 
