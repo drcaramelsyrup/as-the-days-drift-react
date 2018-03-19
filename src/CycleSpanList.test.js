@@ -52,6 +52,13 @@ describe('CycleSpanList - Render', () => {
 		expect(output.type).toBe('div');
 	});
 
+	it('renders with empty text', () => {
+		const dummyPassageData = { text: '' };
+		renderer.render(<CycleSpanList data={ dummyPassageData } />);
+		const output = renderer.getRenderOutput();
+		expect(output.props.children).toEqual([]);
+	})
+
 	it('renders with simple text', () => {
 		let text = 'test text';
 		const dummyPassageData = {
@@ -138,6 +145,81 @@ describe('CycleSpanList - Render', () => {
 		]);
 	});
 
+	it('renders multiple cycling links in the same passage', () => {
+		const firstCycleId = '_cycle_test_1';
+		const firstText1 = 'test for cycle 1';
+		const firstText2 = ' other test for cycle 1';
+
+		const textBetween = ' ';
+
+		const secondCycleId = '_cycle_test_2';
+		const secondText1 = 'test for cycle2';
+
+		const thirdCycleId = '_cycle_test_3';
+		const thirdText1 = 'third';
+		const thirdText2 = 'third cycle \n test ';
+
+		const firstCycleIdx = 0;
+		const secondCycleIdx = 0;
+		const thirdCycleIdx = 1;
+
+		const dummyPassageData = {
+			cycles: {
+				[firstCycleId]: [{
+					actions: null,
+					conditions: null,
+					text: firstText1
+				}, {
+					actions: null,
+					conditions: null,
+					text: firstText2 
+				}],
+				// data positions should not affect ultimate placement
+				[thirdCycleId]: [{
+					actions: null,
+					conditions: null,
+					text: thirdText1
+				}, {
+					actions: null,
+					conditions: null,
+					text: thirdText2
+				}],
+				[secondCycleId]: [{
+					actions: null,
+					conditions: null,
+					text: secondText1
+				}]
+			},
+			text: firstCycleId + textBetween + secondCycleId + thirdCycleId
+		};
+
+		renderer.render(<CycleSpanList data={ dummyPassageData } inventory={
+			{
+				cycles: {
+					[firstCycleId]: firstCycleIdx,
+					[secondCycleId]: secondCycleIdx,
+					[thirdCycleId]: thirdCycleIdx 
+				}
+			}
+		} />);
+
+		const output = renderer.getRenderOutput();
+		let spanIdx = 0;
+		const cycles = dummyPassageData.cycles;
+		expect(output.props.children).toEqual([
+			makeExpectedCycleSpan(firstCycleId, firstCycleIdx, spanIdx++, 
+				makeExpectedCycleData(null, null, firstText1),
+				makeExpectedCycleData(null, null, firstText2)),
+			makeExpectedCycleSpan(null, null, spanIdx++,
+				makeExpectedCycleData(null, null, textBetween)),
+			makeExpectedCycleSpan(secondCycleId, secondCycleIdx, spanIdx++,
+				makeExpectedCycleData(null, null, secondText1)),
+			makeExpectedCycleSpan(thirdCycleId, thirdCycleIdx, spanIdx++,
+				makeExpectedCycleData(null, null, thirdText1),
+				makeExpectedCycleData(null, null, thirdText2))
+		]);
+	});
+
 	describe('Conditions', () => {
 		const cycleId = '_cycle_condition_test';
 		const actions = {
@@ -211,6 +293,67 @@ describe('CycleSpanList - Render', () => {
 				[ spanWithExpectedIdx(conditionalCycleIdx) ]);
 		});
 	});
+
+	describe('Conditional Blocks', () => {
+		const cycleId = '_cycle_condition_test';
+
+		const firstConditionalId = '_cond_text_0';
+		const secondConditionalId = '_cond_text_1';
+		const dummyPassageData = {
+			pid: 0,
+			conditionals: [
+		        {
+		            conditions: {
+		                partner: {
+		                    type: 'is',
+		                    val: 'sam'
+		                },
+		                var_nervous_habit: {
+		                	type: 'equals',
+		                	val: 'fidgeting'
+		                }
+		            },
+		            id: '_cond_text_0',
+		            text: '\nCome on, Sam\'s already inside. '
+		        },
+		        {
+		            conditions: {
+		                romantic: {
+		                    type: '<=',
+		                    val: '2'
+		                },
+		                complacent: {
+		                	type: '>=',
+		                	val: '8'
+		                }
+		            },
+		            id: '_cond_text_1',
+		            text: 'He continued to fidget.'
+		        }
+		    ],
+			cycles: {
+				[cycleId]: [
+					{
+						actions: null,
+						conditions: null,
+						text: 'this text will never render'
+					}
+				]
+			},
+			text: firstConditionalId + secondConditionalId
+		};
+
+		it('does not render a conditional text block when unsatisfied', () => {
+			const inventory = {	romantic: 5 };
+			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			const output = renderer.getRenderOutput();
+			expect(output.props.children).toEqual([]);
+		});
+
+		it('renders a conditional text block when satisfied');
+		it('renders a cycle span inside a conditional text block');
+	});
+
 
 	it('renders with a complete data passage', () => {
 		const tree = TestRenderer.create(<CycleSpanList data={ data } />).toJSON();
