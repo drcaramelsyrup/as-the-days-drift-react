@@ -296,6 +296,22 @@ describe('CycleSpanList - Render', () => {
 
 	describe('Conditional Blocks', () => {
 		const cycleId = '_cycle_condition_test';
+		const cycleIdInConditional = '_cycle_inside_conditional';
+		const firstConditionalCycleData = {
+			actions: null,
+			conditions: {
+				temperamental: {
+					type: '>',
+					val: '5'
+				}
+			},
+			text: 'this text might render'
+		};
+		const secondConditionalCycleData = {
+			actions: null,
+			conditions: null,
+			text: 'this text shouldn\'t render'
+		};
 
 		const firstConditionalId = '_cond_text_0';
 		const secondConditionalId = '_cond_text_1';
@@ -331,7 +347,7 @@ describe('CycleSpanList - Render', () => {
 		                }
 		            },
 		            id: '_cond_text_1',
-		            text: secondConditionalText
+		            text: secondConditionalText + cycleIdInConditional
 		        }
 		    ],
 			cycles: {
@@ -341,6 +357,10 @@ describe('CycleSpanList - Render', () => {
 						conditions: null,
 						text: 'this text will never render'
 					}
+				],
+				[cycleIdInConditional]: [
+					firstConditionalCycleData,
+					secondConditionalCycleData 
 				]
 			},
 			text: firstConditionalId + secondConditionalId
@@ -367,7 +387,22 @@ describe('CycleSpanList - Render', () => {
 			])
 		});
 
-		it('renders a cycle span inside a conditional text block');
+		it('renders a cycle span inside a conditional text block', () => {
+			const inventory = {
+				romantic: 2, complacent: 8, temperamental: 6
+			};
+			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			const output = renderer.getRenderOutput();
+			let spanIdx = 0;
+			const expectedCycleIdx = 0;
+			expect(output.props.children).toEqual([
+				makeExpectedCycleSpan(null, null, spanIdx++,
+					makeExpectedCycleData(null, null, secondConditionalText)),
+				makeExpectedCycleSpan(cycleIdInConditional, expectedCycleIdx, spanIdx++,
+					firstConditionalCycleData,
+					secondConditionalCycleData)
+			]);
+		});
 	});
 
 
