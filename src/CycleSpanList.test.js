@@ -405,6 +405,9 @@ describe('CycleSpanList - Render', () => {
 		});
 	});
 
+});
+
+describe('CycleSpanList - Snapshot', () => {
 
 	it('renders with a complete data passage', () => {
 		const tree = TestRenderer.create(<CycleSpanList data={ data } />).toJSON();

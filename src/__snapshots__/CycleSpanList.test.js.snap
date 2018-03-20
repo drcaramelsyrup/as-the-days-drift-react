@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CycleSpanList - Render renders with a complete data passage 1`] = `
+exports[`CycleSpanList - Snapshot renders with a complete data passage 1`] = `
 <div>
   <span
     className="cycle"
