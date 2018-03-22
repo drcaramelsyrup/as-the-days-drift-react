@@ -5,16 +5,21 @@ const CycleSpanList = (props) => {
 	return <div>{
 		props.data != null && getCycleSpans(
 			props.data, 
-			props.inventory)
+			props.inventory,
+			props.callback)
 	}</div>;
 }
 
-const getCycleSpans = (data, inventory = {}) => {
+const getCycleSpans = (data, inventory = {}, callback = null) => {
 
   // TODO: bad practice to use idx in a component array
   const cycleArray = preprocessData(data, inventory);
   return cycleArray.reduce((acc, cycle, idx) => {
-	return acc.concat([ <CycleSpan key={ 'cyclespan' + idx } cycle={ cycle } /> ]);
+	return acc.concat([ <CycleSpan 
+		key={ 'cyclespan' + idx } 
+		cycle={ cycle }
+		callback={ callback }
+	/> ]);
   }, []);
 
 }

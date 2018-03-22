@@ -36,14 +36,17 @@ describe('CycleSpanList - Render', () => {
 		};
 	}
 
-	const makeExpectedCycleSpan = (cycleId, cycleIdx, keyNum, ...data) => {
-		return <CycleSpan key={ 'cyclespan' + keyNum } cycle={
-			{ 
-				cycle_id: cycleId, 
-				cycle_idx: cycleIdx,
-				data: [...data]
+	const makeExpectedCycleSpan = (cycleId, cycleIdx, callback, keyNum, ...data) => {
+		return <CycleSpan 
+			key={ 'cyclespan' + keyNum } 
+			cycle={
+				{ 
+					cycle_id: cycleId, 
+					cycle_idx: cycleIdx,
+					data: [...data]
+				}
 			}
-		} />
+			callback={ callback } />
 	}
 
 	it('renders as a div container', () => {
@@ -69,7 +72,7 @@ describe('CycleSpanList - Render', () => {
 		const output = renderer.getRenderOutput();
 		const spanIdx = 0;
 		expect(output.props.children).toEqual(
-			[ makeExpectedCycleSpan(null, null, spanIdx,
+			[ makeExpectedCycleSpan(null, null, null, spanIdx,
 				makeExpectedCycleData(null, null, text)) ]);
 	});
 
@@ -98,11 +101,11 @@ describe('CycleSpanList - Render', () => {
 		let spanIdx = 0;
 		const cycleIdx = 0;
 		expect(output.props.children).toEqual([
-			makeExpectedCycleSpan(null, null, spanIdx++,
+			makeExpectedCycleSpan(null, null, null, spanIdx++,
 				makeExpectedCycleData(null, null, textBeforeLink)),
-			makeExpectedCycleSpan(cycleId, cycleIdx, spanIdx++,
+			makeExpectedCycleSpan(cycleId, cycleIdx, null, spanIdx++,
 				makeExpectedCycleData(null, null, testLinkText)),
-			makeExpectedCycleSpan(null, null, spanIdx++,
+			makeExpectedCycleSpan(null, null, null, spanIdx++,
 				makeExpectedCycleData(null, null, textAfterLink))
 		]);
 	});
@@ -139,7 +142,7 @@ describe('CycleSpanList - Render', () => {
 
 		const spanIdx = 0;
 		expect(output.props.children).toEqual([
-			makeExpectedCycleSpan(cycleId, cycleIdx, spanIdx, 
+			makeExpectedCycleSpan(cycleId, cycleIdx, null, spanIdx, 
 				makeExpectedCycleData(null, null, firstLinkText),
 				makeExpectedCycleData(null, null, secondLinkText))
 		]);
@@ -207,14 +210,14 @@ describe('CycleSpanList - Render', () => {
 		let spanIdx = 0;
 		const cycles = dummyPassageData.cycles;
 		expect(output.props.children).toEqual([
-			makeExpectedCycleSpan(firstCycleId, firstCycleIdx, spanIdx++, 
+			makeExpectedCycleSpan(firstCycleId, firstCycleIdx, null, spanIdx++, 
 				makeExpectedCycleData(null, null, firstText1),
 				makeExpectedCycleData(null, null, firstText2)),
-			makeExpectedCycleSpan(null, null, spanIdx++,
+			makeExpectedCycleSpan(null, null, null, spanIdx++,
 				makeExpectedCycleData(null, null, textBetween)),
-			makeExpectedCycleSpan(secondCycleId, secondCycleIdx, spanIdx++,
+			makeExpectedCycleSpan(secondCycleId, secondCycleIdx, null, spanIdx++,
 				makeExpectedCycleData(null, null, secondText1)),
-			makeExpectedCycleSpan(thirdCycleId, thirdCycleIdx, spanIdx++,
+			makeExpectedCycleSpan(thirdCycleId, thirdCycleIdx, null, spanIdx++,
 				makeExpectedCycleData(null, null, thirdText1),
 				makeExpectedCycleData(null, null, thirdText2))
 		]);
@@ -261,6 +264,7 @@ describe('CycleSpanList - Render', () => {
 			return makeExpectedCycleSpan(
 				cycleId,
 				cycleIdx,
+				null,
 				spanIdx,
 				makeExpectedCycleData(
 					actions, conditions, conditionText),
@@ -368,7 +372,10 @@ describe('CycleSpanList - Render', () => {
 
 		it('does not render a conditional text block when unsatisfied', () => {
 			const inventory = {	romantic: 5 };
-			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			renderer.render(<CycleSpanList 
+				data={ dummyPassageData } 
+				inventory={ inventory } 
+				callback={ null } />);
 			const output = renderer.getRenderOutput();
 			expect(output.props.children).toEqual([]);
 		});
@@ -378,11 +385,14 @@ describe('CycleSpanList - Render', () => {
 				romantic: 6, complacent: 9, 
 				partner: 'sam', var_nervous_habit: 'fidgeting' 
 			};
-			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			renderer.render(<CycleSpanList 
+				data={ dummyPassageData } 
+				inventory={ inventory }
+				callback={ null } />);
 			const output = renderer.getRenderOutput();
 			const spanIdx = 0;
 			expect(output.props.children).toEqual([
-				makeExpectedCycleSpan(null, null, spanIdx,
+				makeExpectedCycleSpan(null, null, null, spanIdx,
 					makeExpectedCycleData(null, null, firstConditionalText))
 			])
 		});
@@ -391,14 +401,15 @@ describe('CycleSpanList - Render', () => {
 			const inventory = {
 				romantic: 2, complacent: 8, temperamental: 6
 			};
-			renderer.render(<CycleSpanList data={ dummyPassageData } inventory={ inventory } />);
+			renderer.render(<CycleSpanList data={ dummyPassageData } 
+				inventory={ inventory } />);
 			const output = renderer.getRenderOutput();
 			let spanIdx = 0;
 			const expectedCycleIdx = 0;
 			expect(output.props.children).toEqual([
-				makeExpectedCycleSpan(null, null, spanIdx++,
+				makeExpectedCycleSpan(null, null, null, spanIdx++,
 					makeExpectedCycleData(null, null, secondConditionalText)),
-				makeExpectedCycleSpan(cycleIdInConditional, expectedCycleIdx, spanIdx++,
+				makeExpectedCycleSpan(cycleIdInConditional, expectedCycleIdx, null, spanIdx++,
 					firstConditionalCycleData,
 					secondConditionalCycleData)
 			]);

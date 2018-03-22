@@ -28,16 +28,18 @@ describe('Passage - Render', () => {
 		renderer.unmount();
 	});
 
-	const makeExpectedCycleSpanList = (id, actions, conditionals, cycles, text) => {
-		return <CycleSpanList data={
-			{
-				actions: actions,
-				conditionals: conditionals,
-				cycles: cycles,
-				id: id,
-				text: text
-			}
-		}/>
+	const makeExpectedListData = (id, actions, conditionals, cycles, text) => {
+		return {
+			actions: actions,
+			conditionals: conditionals,
+			cycles: cycles,
+			id: id,
+			text: text
+		};	
+	}
+
+	const makeExpectedCycleSpanList = (data, inventory) => {
+		return <CycleSpanList data={ data } inventory={ inventory } />;
 	}
 
 	it('renders as a div container', () => {
@@ -57,7 +59,9 @@ describe('Passage - Render', () => {
 		renderer.render(<Passage data={ dummyPassage } />);
 		const output = renderer.getRenderOutput();
 		expect(output.props.children).toEqual(
-			makeExpectedCycleSpanList(pid, null, null, null, text));
+			makeExpectedCycleSpanList(
+				makeExpectedListData(pid, null, null, null, text),
+				{}));
 	});
 
 	it('renders with a complete data passage', () => {
