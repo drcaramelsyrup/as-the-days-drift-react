@@ -3,18 +3,35 @@ import CycleSpanList from './CycleSpanList';
 
 class Passage extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: props.data,
+			inventory: props.inventory,
+			callback: props.callback
+		};
+	}
+
 	render() {
 		return <div>{
-			this.props.data != null && createCycleSpanList(
+			this.state.data != null && createCycleSpanList(
 				createCycleSpanListData(
-					this.props.data.pid, 
-					this.props.data.actions, 
-					this.props.data.conditionals, 
-					this.props.data.cycles, 
-					this.props.data.text),
-				this.props.inventory,
-				this.props.callback)
+					this.state.data.pid, 
+					this.state.data.actions, 
+					this.state.data.conditionals, 
+					this.state.data.cycles, 
+					this.state.data.text),
+				this.state.inventory,
+				this.state.callback)
 		}</div>;
+	}
+
+	advancePassage = (newData, newInventory) => {
+
+	}
+
+	updatePassage = (newInventory) => {
+		// this.setState({ inventory: newInventory });
 	}
 
 }
@@ -39,11 +56,6 @@ const createCycleSpanList = (data, inventory = {}, callback = null) => {
 		callback={ callback } />;
 }
 
-const drawPassage = (newInventory) => {
-	return <Passage />;
-	newInventory.actions;
-};
-
 // Callback to return updated inventory when advancing cycle
 // const handleNextCycle = (cycleId, currentIdx, cycleData = [], inventory = {}) => {
 // 	const nextIdx = nextValidCycleIdx(cycleId, currentIdx + 1, cycleData, inventory)
@@ -53,4 +65,3 @@ const drawPassage = (newInventory) => {
 // }
 
 export default Passage;
-export { drawPassage };
