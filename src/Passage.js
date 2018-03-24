@@ -1,17 +1,22 @@
 import React from 'react';
 import CycleSpanList from './CycleSpanList';
 
-const Passage = (props) => {
-	return <div>{
-		props.data != null && createCycleSpanList(
-			createCycleSpanListData(
-				props.data.pid, 
-				props.data.actions, 
-				props.data.conditionals, 
-				props.data.cycles, 
-				props.data.text),
-			props.inventory)
-	}</div>;
+class Passage extends React.Component {
+
+	render() {
+		return <div>{
+			this.props.data != null && createCycleSpanList(
+				createCycleSpanListData(
+					this.props.data.pid, 
+					this.props.data.actions, 
+					this.props.data.conditionals, 
+					this.props.data.cycles, 
+					this.props.data.text),
+				this.props.inventory,
+				this.props.callback)
+		}</div>;
+	}
+
 }
 
 const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
@@ -27,11 +32,25 @@ const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
 	};
 }
 
-const createCycleSpanList = (data, inventory = {}) => {
-	return <CycleSpanList data={ data } inventory={ inventory } />;
+const createCycleSpanList = (data, inventory = {}, callback = null) => {
+	return <CycleSpanList 
+		data={ data } 
+		inventory={ inventory } 
+		callback={ callback } />;
 }
 
-const drawPassage = () => {};
+const drawPassage = (newInventory) => {
+	return <Passage />;
+	newInventory.actions;
+};
+
+// Callback to return updated inventory when advancing cycle
+// const handleNextCycle = (cycleId, currentIdx, cycleData = [], inventory = {}) => {
+// 	const nextIdx = nextValidCycleIdx(cycleId, currentIdx + 1, cycleData, inventory)
+// 	const newInventory = inventory.acc([]);
+// 	newInventory[cycleId] = nextIdx;
+// 	return newInventory;
+// }
 
 export default Passage;
 export { drawPassage };
