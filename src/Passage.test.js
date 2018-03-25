@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import TestRenderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
+
 import Passage from './Passage';
 import CycleSpanList from './CycleSpanList';
 import data from './test_passage.json';
@@ -130,11 +132,28 @@ describe('Passage - Render', () => {
 				makeExpectedListData(pid, null, null, null, text),
 				inventory, drawPassage));
 		
-	})
+	});
 
 	it('renders with a complete data passage', () => {
 		const tree = TestRenderer.create(<Passage data={ data } />).toJSON();
 		expect(tree).toMatchSnapshot();
+	});
+
+});
+
+describe('Passage - updatePassage', () => {
+	it('renders and updates its inventory state', () => {
+		const pid = 42;
+		const text = 'callback should be drawPassage';
+		const dummyPassage = {
+			pid: pid,
+			text: text
+		};
+		const inventory = { conventional: 1 };
+		const passage = shallow(<Passage 
+			data={ dummyPassage }
+			inventory={ inventory } />);
+
 	});
 
 });
