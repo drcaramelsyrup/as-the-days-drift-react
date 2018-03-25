@@ -20,16 +20,6 @@ describe('Passage - Smoke', () => {
 
 describe('Passage - Render', () => {
 
-	let renderer;
-
-	beforeEach(() => {
-		renderer = new ShallowRenderer();
-	});
-
-	afterEach(() => {
-		renderer.unmount();
-	});
-
 	const makeExpectedListData = (id, actions, conditionals, cycles, text) => {
 		return {
 			actions: actions,
@@ -40,7 +30,7 @@ describe('Passage - Render', () => {
 		};	
 	}
 
-	const makeExpectedCycleSpanList = (data, inventory, callback = null) => {
+	const makeExpectedCycleSpanList = (data, inventory, callback) => {
 		return <CycleSpanList 
 			data={ data } 
 			inventory={ inventory }
@@ -48,9 +38,13 @@ describe('Passage - Render', () => {
 	}
 
 	it('renders as a div container', () => {
+		const renderer = new ShallowRenderer();
+
 		renderer.render(<Passage />);
 		const output = renderer.getRenderOutput();
 		expect(output.type).toBe('div');
+
+		renderer.unmount();
 	});
 
 	it('renders with a simple passage id and text', () => {
@@ -61,12 +55,12 @@ describe('Passage - Render', () => {
 			text: text 
 		};
 
-		renderer.render(<Passage data={ dummyPassage } />);
-		const output = renderer.getRenderOutput();
-		expect(output.props.children).toEqual(
+		const passage = shallow(<Passage data={ dummyPassage } />);
+		expect(passage.props().children).toEqual(
 			makeExpectedCycleSpanList(
 				makeExpectedListData(pid, null, null, null, text),
-				{}));
+				{},
+				passage.instance().updatePassage));
 	});
 
 	it('renders and passes along data fields', () => {
@@ -106,33 +100,36 @@ describe('Passage - Render', () => {
 		const dummyPassage = Object.assign({}, data);
 		dummyPassage.pid = pid;
 
-		renderer.render(<Passage data={ dummyPassage } inventory={ inventory } />);
-		const output = renderer.getRenderOutput();
-		expect(output.props.children).toEqual(
-			makeExpectedCycleSpanList(data, inventory));
-
-	});
-
-	it('renders and passes along a callback', () => {
-		const pid = 42;
-		const text = 'callback should be drawPassage';
-		const dummyPassage = {
-			pid: pid,
-			text: text
-		};
-		const inventory = { conventional: 1 };
-		const drawPassage = () => { return false; };
-		renderer.render(<Passage 
+		const wrapper = shallow(<Passage 
 			data={ dummyPassage } 
-			inventory={ inventory }
-			callback={ drawPassage } />);
-		const output = renderer.getRenderOutput();
-		expect(output.props.children).toEqual(
+			inventory={ inventory} />);
+		expect(wrapper.props().children).toEqual(
 			makeExpectedCycleSpanList(
-				makeExpectedListData(pid, null, null, null, text),
-				inventory, drawPassage));
-		
+				data, 
+				inventory,
+				wrapper.instance().updatePassage));
 	});
+
+	/* Not yet passing callbacks into the Passage component. */
+	// it('renders and passes along a callback', () => {
+	// 	const pid = 42;
+	// 	const text = 'callback should be drawPassage';
+	// 	const dummyPassage = {
+	// 		pid: pid,
+	// 		text: text
+	// 	};
+	// 	const inventory = { conventional: 1 };
+	// 	const drawPassage = () => { return false; };
+	// 	renderer.render(<Passage 
+	// 		data={ dummyPassage } 
+	// 		inventory={ inventory }
+	// 		callback={ drawPassage } />);
+	// 	const output = renderer.getRenderOutput();
+	// 	expect(output.props.children).toEqual(
+	// 		makeExpectedCycleSpanList(
+	// 			makeExpectedListData(pid, null, null, null, text),
+	// 			inventory, drawPassage));
+	// });
 
 	it('renders with a complete data passage', () => {
 		const tree = TestRenderer.create(<Passage data={ data } />).toJSON();
@@ -142,18 +139,31 @@ describe('Passage - Render', () => {
 });
 
 describe('Passage - updatePassage', () => {
+
+	const pid = 42;
+	const text = 'update passage ';
+	const dummyPassage = {
+		pid: pid,
+		text: text
+	};
+
 	it('renders and updates its inventory state', () => {
-		const pid = 42;
-		const text = 'callback should be drawPassage';
-		const dummyPassage = {
-			pid: pid,
-			text: text
-		};
 		const inventory = { conventional: 1 };
 		const passage = shallow(<Passage 
 			data={ dummyPassage }
 			inventory={ inventory } />);
 		const newInventory = { unconventional: 1 };
+		passage.instance().updatePassage(newInventory);
+		expect(passage.state().inventory).toEqual(newInventory);
+	});
+
+	it('renders and passes the update callback to children', () => {
+		const inventory = { conventional: 1, practical: 2 };
+		const passage = shallow(<Passage 
+			data={ dummyPassage }
+			inventory={ inventory } />);
+
+		const newInventory = { unconventional: 1, romantic: 3 };
 		passage.instance().updatePassage(newInventory);
 		expect(passage.state().inventory).toEqual(newInventory);
 	});
