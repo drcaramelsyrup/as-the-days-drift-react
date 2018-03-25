@@ -26,12 +26,10 @@ class Passage extends React.Component {
 		}</div>;
 	}
 
-	advancePassage = (newData, newInventory) => {
-
-	}
+	advancePassage = (newData, newInventory) => {}
 
 	updatePassage = (newInventory) => {
-		// this.setState({ inventory: newInventory });
+		this.setState({ inventory: newInventory });
 	}
 
 }

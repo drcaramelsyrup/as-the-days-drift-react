@@ -153,7 +153,9 @@ describe('Passage - updatePassage', () => {
 		const passage = shallow(<Passage 
 			data={ dummyPassage }
 			inventory={ inventory } />);
-
+		const newInventory = { unconventional: 1 };
+		passage.instance().updatePassage(newInventory);
+		expect(passage.state().inventory).toEqual(newInventory);
 	});
 
 });
