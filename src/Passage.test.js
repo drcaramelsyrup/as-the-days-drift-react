@@ -42,7 +42,7 @@ describe('Passage - Render', () => {
 
 		renderer.render(<Passage />);
 		const output = renderer.getRenderOutput();
-		expect(output.props).toBe(undefined);
+		expect(output).toBe(false);
 
 		renderer.unmount();
 	});

@@ -1,9 +1,10 @@
 import React from 'react';
 
 const CycleSpan = (props) => {
-	return (<span className='cycle'>{ 
-		processText(props.text)
-	}</span>); 
+	return isValidCycle(props.cycle) 
+		&& (<span className='cycle'>{ 
+				getCycleText(props.cycle)
+			}</span>);
 }
 
 const splitOnUnescapedWhitespace = (rawText) => {
@@ -29,6 +30,17 @@ const processText = (rawText) => {
 		return <span key={ 'text' + sectionKey }>{ text }</span>;
 	});
 
+}
+
+const isValidCycle = (cycle) => {
+	return cycle != null 
+		&& cycle.data != null 
+		&& cycle.cycle_idx != null
+		&& cycle.data[cycle.cycle_idx] != null;
+}
+
+const getCycleText = (cycle) => {
+	return cycle.data[cycle.cycle_idx].text;
 }
 
 export default CycleSpan;
