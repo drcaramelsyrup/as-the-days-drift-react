@@ -37,10 +37,24 @@ describe('Passage - Render', () => {
 			callback={ callback } />;
 	}
 
-	it('renders as a div container', () => {
+	it('does not render if not given data', () => {
 		const renderer = new ShallowRenderer();
 
 		renderer.render(<Passage />);
+		const output = renderer.getRenderOutput();
+		expect(output.props).toBe(undefined);
+
+		renderer.unmount();
+	});
+
+	it('renders as a div container', () => {
+		const renderer = new ShallowRenderer();
+
+		const dummyPassage = {
+			pid: 215,
+			text: 'test text' 
+		};
+		renderer.render(<Passage data={ dummyPassage }/>);
 		const output = renderer.getRenderOutput();
 		expect(output.type).toBe('div');
 

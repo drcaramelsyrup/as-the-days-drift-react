@@ -130,10 +130,14 @@ const getCycleIdx = (cycleId, cycleData, inventory) => {
 	const desiredIdx = inventory.cycles != null ? inventory.cycles[cycleId] : 0;
 
 	// Make sure that we have a valid cycle index.
-	return nextValidCycleIdx(cycleId, desiredIdx, cycleData, inventory);
+	return getValidCycleIdx(cycleId, desiredIdx, cycleData, inventory);
 }
 
-const nextValidCycleIdx = (cycleId, desiredIdx, cycleData, inventory) => {
+const nextValidCycleIdx = (cycleId, currentIdx, cycleData, inventory) => {
+	return getValidCycleIdx(cycleId, currentIdx + 1, cycleData, inventory);
+}
+
+const getValidCycleIdx = (cycleId, desiredIdx, cycleData, inventory) => {
 	// Starting from the desired idx...
 	for (let i = desiredIdx; i < cycleData.length; ++i) {
 		const datum = cycleData[i];
@@ -201,11 +205,19 @@ const isValidString = (str) => {
 }
 
 // Callback to return updated inventory when advancing cycle
-// const handleNextCycle = (cycleId, currentIdx, cycleData = [], inventory = {}) => {
-// 	const nextIdx = nextValidCycleIdx(cycleId, currentIdx + 1, cycleData, inventory)
-// 	const newInventory = inventory.acc([]);
-// 	newInventory[cycleId] = nextIdx;
-// 	return newInventory;
-// }
+const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
+	const nextIdx = nextValidCycleIdx(cycleId, currentCycleIdx, cycleData, inventory);
+	const newInventory = Object.assign({}, inventory);
+	newInventory.cycles[cycleId] = nextIdx;
+	return newInventory;
+}
+
+const cycleSpanUpdateFunction = (cycle, inventory, callback) => {
+	return () => {
+		callback(handleNextCycle(
+			cycle.cycle_id, cycle.cycle_idx, cycle.data, inventory));
+	}
+}
 
 export default CycleSpanList;
+export { cycleSpanUpdateFunction };

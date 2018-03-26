@@ -14,21 +14,19 @@ class Passage extends React.Component {
 
 	// advancePassage = (newData, newInventory) => {}
 	updatePassage = (newInventory) => {
-		if (this.state.callback != null)
-			this.state.callback();
 		this.setState({ inventory: newInventory });
 	}
 
 	render() {
-		return <div>{
-			this.state.data != null && createCycleSpanList(
+		return this.state.data != null && <div>{
+			createCycleSpanList(
 				createCycleSpanListData(
 					this.state.data.pid, 
 					this.state.data.actions, 
 					this.state.data.conditionals, 
 					this.state.data.cycles, 
 					this.state.data.text),
-				this.state.inventory,
+				this.state.inventory || {},
 				this.updatePassage)
 		}</div>;
 	}
@@ -48,7 +46,7 @@ const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
 	};
 }
 
-const createCycleSpanList = (data, inventory = {}, callback = null) => {
+const createCycleSpanList = (data, inventory, callback) => {
 	return <CycleSpanList 
 		data={ data } 
 		inventory={ inventory } 
