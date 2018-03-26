@@ -405,6 +405,33 @@ describe('CycleSpanList - Render', () => {
 			text: firstConditionalId + secondConditionalId
 		};
 
+		it('does not replace a conditional text block without a conditional id', () => {
+			const inventory = { var_possession: 'orange' };
+			const invalidPassageData = Object.assign({}, dummyPassageData);
+			const conditionalId = 'orange';
+			invalidPassageData.conditionals.push({
+				conditions: {
+					var_possession: {
+						type: 'is',
+						val: 'orange'
+					}
+				},
+				text: 'text that will not be replaced'
+			});
+			invalidPassageData.text += conditionalId;
+			renderer.render(<CycleSpanList
+				data={ invalidPassageData }
+				inventory={ inventory }
+				callback={ null } />);
+			const spanIdx = 0;
+			const noCallback = null;
+			const output = renderer.getRenderOutput();
+			expect(output.props.children).toEqual([ 
+				makeCycleSpan(
+					makeTextCycle(conditionalId),
+					inventory, noCallback, spanIdx) ])
+		});
+
 		it('does not render a conditional text block when unsatisfied', () => {
 			const inventory = {	romantic: 5 };
 			renderer.render(<CycleSpanList 
@@ -486,6 +513,10 @@ describe('CycleSpanList - Render', () => {
 				makeCycleData(firstText),
 				makeCycleData(secondText));
 
+			// Both the cycle update and the inventory update are necessary right now.
+			// Even though they have redundant information.
+			// The ultimate setup will have to depend on the ultimate data binding.
+
 			let callbackIdx = -1;
 			const callback = (nextInventory) => {
 				callbackIdx = nextInventory.cycles[cycleId];
@@ -497,24 +528,6 @@ describe('CycleSpanList - Render', () => {
 			expect(callbackIdx).toEqual(cycleIdx);
 		});
 
-		// it('will update according to the callback appropriately', () => {
-		// 	const inventory = { romantic: 1, complacent: 1 };
-		// 	const cycleId = 0;
-		// 	const cycleIdx = 0;
-
-		// 	const firstText = 'test text 1';
-		// 	const secondText = 'test text 2';
-		// 	const cycle = makeCycle(cycleId, cycleIdx,
-		// 		makeCycleData(firstText),
-		// 		makeCycleData(secondText));
-
-		// 	let callbackInv = {};
-		// 	const callback = (newInventory) => {
-		// 		callbackInv = Object.assign({}, newInventory);
-		// 	};
-
-		// 	cycleSpanUpdateFunction(cycle, inventory, callback);
-		// });
 	});
 
 });
