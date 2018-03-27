@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
+import { shallow } from 'enzyme';
+
 import CycleSpan from './CycleSpan';
 
 describe('CycleSpan - Smoke', () => {
@@ -41,8 +43,10 @@ describe('CycleSpan - Render', () => {
 		};
 	}
 
-	const makeSpan = (cycle) => {
-		return (<span className='cycle'>{ cycle.data[cycle.cycle_idx].text }</span>);
+	const makeSpan = (cycle, callback = null) => {
+		return (<span className='cycle' onClick={ callback }>
+			{ cycle.data[cycle.cycle_idx].text }
+		</span>);
 	}
 
 	it('does not render a span without data', () => {
@@ -79,6 +83,19 @@ describe('CycleSpan - Render', () => {
 		renderer.render(<CycleSpan cycle={ cycle } />);
 		const output = renderer.getRenderOutput();
 		expect(output).toEqual(makeSpan(cycle));
+	});
+
+	it('handles a click event by calling the given callback', () => {
+		const cycleId = '_cycle_test';
+		const cycleIdx = 0;
+		const text = 'test';
+		const cycle = makeCycle(cycleId, cycleIdx, makeCycleData(text));
+
+		let result = false;
+		const span = shallow(<CycleSpan 
+			cycle={ cycle } callback={ () => { result = true; } } />);
+		span.find('span').simulate('click');
+		expect(result).toBe(true);
 	});
 
 	/* DEPRECATED */

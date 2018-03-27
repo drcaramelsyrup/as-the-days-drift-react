@@ -1,8 +1,9 @@
 import React from 'react';
 
 const CycleSpan = (props) => {
+	const callback = props.callback != null ? props.callback : null;
 	return isValidCycle(props.cycle) 
-		&& (<span className='cycle'>{ 
+		&& (<span className='cycle' onClick={ callback }>{ 
 				getCycleText(props.cycle)
 			}</span>);
 }
