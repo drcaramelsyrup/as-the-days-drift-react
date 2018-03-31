@@ -12,7 +12,21 @@ class Passage extends React.Component {
 		};
 	}
 
-	// advancePassage = (newData, newInventory) => {}
+	advancePassage = (newData, newInventory) => {
+		const { actions, ...inventory } = newInventory;
+		const integratedInventory = actions == null
+			? inventory 
+			: Object.keys(actions).reduce((ret, action) => {
+				if (ret.hasOwnProperty(action))
+					ret[action] += actions[action];
+				else
+					ret[action] = actions[action];
+				return ret;
+			}, inventory);
+
+		this.setState({ data: newData, inventory: integratedInventory });
+	}
+
 	updatePassage = (newInventory) => {
 		this.setState({ inventory: newInventory });
 	}

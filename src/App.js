@@ -16,12 +16,6 @@ class App extends Component {
 		};
 	}
 
-	loadDataFromFile(file) {
-		this.setState({
-			data: JSON.parse(file)
-		});
-	}
-
 	setData(data) {
 		this.setState({ data: data });
 	}
