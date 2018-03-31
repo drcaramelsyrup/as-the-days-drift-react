@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
-import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import ResponseList from './ResponseList';
