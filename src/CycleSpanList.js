@@ -1,5 +1,6 @@
 import React from 'react';
 import CycleSpan from './CycleSpan';
+import { mergeActions, removeActions } from './InventoryUtils';
 
 const CycleSpanList = (props) => {
 	return <div>{
@@ -209,6 +210,8 @@ const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
 	const nextIdx = nextValidCycleIdx(cycleId, currentCycleIdx, cycleData, inventory);
 	const newInventory = Object.assign({}, inventory);
 	newInventory.cycles[cycleId] = nextIdx;
+	newInventory.actions = removeActions(newInventory.actions, cycleData[currentCycleIdx].actions);
+	newInventory.actions = mergeActions(newInventory.actions, cycleData[nextIdx].actions);
 	return newInventory;
 }
 

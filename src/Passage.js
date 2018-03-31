@@ -1,5 +1,6 @@
 import React from 'react';
 import CycleSpanList from './CycleSpanList';
+import { mergeActions } from './InventoryUtils';
 
 class Passage extends React.Component {
 
@@ -14,17 +15,11 @@ class Passage extends React.Component {
 
 	advancePassage = (newData, newInventory) => {
 		const { actions, ...inventory } = newInventory;
-		const integratedInventory = actions == null
-			? inventory 
-			: Object.keys(actions).reduce((ret, action) => {
-				if (ret.hasOwnProperty(action))
-					ret[action] += actions[action];
-				else
-					ret[action] = actions[action];
-				return ret;
-			}, inventory);
 
-		this.setState({ data: newData, inventory: integratedInventory });
+		this.setState({ 
+			data: newData, 
+			inventory: mergeActions(inventory, actions) 
+		});
 	}
 
 	updatePassage = (newInventory) => {

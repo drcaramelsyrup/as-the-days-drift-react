@@ -528,6 +528,45 @@ describe('CycleSpanList - Render', () => {
 			expect(callbackIdx).toEqual(cycleIdx);
 		});
 
+		it('will accumulate actions in the new inventory', () => {
+
+			const cycleId = 'cycleId';
+			const cycleIdx = 0;
+			let nextInventory = { romantic: 1, cycles: { [cycleId]: cycleIdx } };
+			const firstActions = {
+				romantic: 1,
+				var_possession: 'crystal'
+			};
+			const secondActions = {
+				romantic: 2,
+				practical: 1
+			};
+			const firstAfterSecondActions = {
+				romantic: 1,
+				practical: 0,
+				var_possession: 'crystal'
+			};
+
+			const firstText = 'test text 1';
+			const secondText = 'test text 2';
+			const cycle = makeCycle(cycleId, cycleIdx,
+				makeCycleData(firstText, firstActions),
+				makeCycleData(secondText, secondActions));
+			const newCycle = makeCycle(cycleId, cycleIdx + 1,
+				makeCycleData(firstText, firstActions),
+				makeCycleData(secondText, secondActions));
+
+			const testingCallback = (inInventory) => {
+				nextInventory = Object.assign({}, inInventory);
+			}
+			cycleSpanUpdateFunction(cycle, nextInventory, testingCallback)();
+			expect(nextInventory.actions).toEqual(secondActions);
+
+			cycleSpanUpdateFunction(newCycle, nextInventory, testingCallback)();
+			expect(nextInventory.actions).toEqual(firstAfterSecondActions);
+
+		});
+
 	});
 
 });
