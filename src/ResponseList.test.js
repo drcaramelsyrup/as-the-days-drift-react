@@ -17,8 +17,8 @@ describe('ResponseList - Smoke', () => {
 
 describe('ResponseList - Render', () => {
 
-	const makeResponse = (idx, data) => {
-		return <Response key={ 'response'+idx } data={ data } />;
+	const makeResponse = (idx, data, callback) => {
+		return <Response key={ 'response'+idx } data={ data } callback={ callback } />;
 	}
 	const makeResponseData = (target, text, conditions) => {
 		return {
@@ -54,12 +54,13 @@ describe('ResponseList - Render', () => {
 		const firstResponse = { target: 1, text: 'And then' };
 		const secondResponse = { target: 2, text: 'Over here' };
 		const responses = [ firstResponse, secondResponse ];
+		const callback = (num) => { return num; }
 
-		renderer.render(<ResponseList data={ responses } />);
+		renderer.render(<ResponseList data={ responses } callback={ callback } />);
 		const output = renderer.getRenderOutput();
 		expect(output.props.children).toEqual([
-			makeResponse(0, firstResponse),
-			makeResponse(1, secondResponse)
+			makeResponse(0, firstResponse, callback),
+			makeResponse(1, secondResponse, callback)
 		]);
 	});
 
