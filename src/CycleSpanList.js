@@ -1,6 +1,6 @@
 import React from 'react';
 import CycleSpan from './CycleSpan';
-import { mergeActions, removeActions } from './InventoryUtils';
+import { mergeActions, removeActions, matchesQuery } from './InventoryUtils';
 
 const CycleSpanList = (props) => {
 	return <div>{
@@ -167,37 +167,6 @@ const makeCycleData = (text, actions = null, conditions = null) => {
 		conditions: conditions,
 		text: text
 	};
-}
-
-const matchesQuery = (conditions, variables) => {
-	// No conditions automatically matches,
-	// but nothing to match against fails against something to match.
-	if (conditions == null)
-		return true;
-
-	return Object.keys(conditions).reduce((isFulfilled, conditionId) => {
-
-		const { type, val } = conditions[conditionId];
-		const cmpVal = variables[conditionId];
-		if (cmpVal == null)
-			return false;
-
-		switch (type) {
-			case '>':
-				return isFulfilled && cmpVal > val;
-			case '<':
-				return isFulfilled && cmpVal < val;
-			case '>=':
-				return isFulfilled && cmpVal >= val;
-			case '<=':
-				return isFulfilled && cmpVal <= val;
-			case 'is':
-			case '=':
-			default:
-				return isFulfilled && cmpVal === val;
-		}
-
-	}, true);
 }
 
 // Returns false if string is empty, null, or undefined.

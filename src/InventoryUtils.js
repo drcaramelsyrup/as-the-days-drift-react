@@ -36,8 +36,39 @@ const removeActions = (actions, actionsToRemove) => {
 		}, {});
 }
 
+const matchesQuery = (conditions, variablesToCheck) => {
+	// No conditions automatically matches,
+	// but nothing to match against fails against something to match.
+	if (conditions == null)
+		return true;
+
+	return Object.keys(conditions).reduce((isFulfilled, conditionId) => {
+
+		const { type, val } = conditions[conditionId];
+		const cmpVal = variablesToCheck[conditionId];
+		if (cmpVal == null)
+			return false;
+
+		switch (type) {
+			case '>':
+				return isFulfilled && cmpVal > val;
+			case '<':
+				return isFulfilled && cmpVal < val;
+			case '>=':
+				return isFulfilled && cmpVal >= val;
+			case '<=':
+				return isFulfilled && cmpVal <= val;
+			case 'is':
+			case '=':
+			default:
+				return isFulfilled && cmpVal === val;
+		}
+
+	}, true);
+}
+
 const isNumeric = (number) => {
 	return !isNaN(parseFloat(number)) && isFinite(number);
 }
 
-export { mergeActions, removeActions };
+export { mergeActions, removeActions, matchesQuery };

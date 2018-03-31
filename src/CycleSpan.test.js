@@ -98,36 +98,5 @@ describe('CycleSpan - Render', () => {
 		expect(result).toBe(true);
 	});
 
-	/* DEPRECATED */
-	// it('renders text passed in with the correct section key', () => {
-	// 	const text = 'test text';
-	// 	renderer.render(<CycleSpan text={ text } />);
-	// 	const output = renderer.getRenderOutput();
-
-	// 	const outputChildren = output.props.children;
-	// 	const sectionKey = '0';
-	// 	const expectedChildren = [
-	// 		<span key={ 'text' + sectionKey }>{ text }</span>
-	// 	];
-
-	// 	expect(outputChildren).toEqual(expectedChildren);
-	// 	expect(JSON.stringify(outputChildren)).toEqual(
-	// 		JSON.stringify(expectedChildren));
-	// });
-
-	// it('renders whitespace correctly as unicode characters', () => {
-	// 	const firstParagraph = 'This is a paragraph.';
-	// 	const firstSectionKey = '0';
-	// 	const secondParagraph = 'Another paragraph - wow ';
-	// 	const secondSectionKey = '1';
-
-	// 	const text = '\t' + firstParagraph + '\n\t' + secondParagraph + '\r';
-	// 	renderer.render(<CycleSpan text={ text } />);
-	// 	const output = renderer.getRenderOutput();
-	// 	expect(output.props.children).toEqual([
-	// 		<span key={ 'text' + firstSectionKey }>{ text }</span>
-	// 	]);
-	// });
-
 });
 
