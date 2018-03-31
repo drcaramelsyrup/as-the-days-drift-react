@@ -1,5 +1,6 @@
 import React from 'react';
 import CycleSpanList from './CycleSpanList';
+import ResponseList from './ResponseList';
 import { mergeActions } from './InventoryUtils';
 
 class Passage extends React.Component {
@@ -13,7 +14,7 @@ class Passage extends React.Component {
 		};
 	}
 
-	advancePassage = (newData, newInventory) => {
+	setPassage = (newData, newInventory) => {
 		const { actions, ...inventory } = newInventory;
 
 		this.setState({ 
@@ -27,17 +28,20 @@ class Passage extends React.Component {
 	}
 
 	render() {
-		return this.state.data != null && <div>{
-			createCycleSpanList(
-				createCycleSpanListData(
-					this.state.data.pid, 
-					this.state.data.actions, 
-					this.state.data.conditionals, 
-					this.state.data.cycles, 
-					this.state.data.text),
-				this.state.inventory || {},
-				this.updatePassage)
-		}</div>;
+		return this.state.data != null && (<div>
+			{
+				createCycleSpanList(
+					createCycleSpanListData(
+						this.state.data.pid, 
+						this.state.data.actions, 
+						this.state.data.conditionals, 
+						this.state.data.cycles, 
+						this.state.data.text),
+					this.state.inventory || {},
+					this.updatePassage) 
+			}
+			<ResponseList />
+		</div>);
 	}
 
 }

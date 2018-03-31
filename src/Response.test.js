@@ -72,17 +72,4 @@ describe('Response - Render', () => {
 
 	});
 
-	// it('renders a list of response data', () => {
-	// 	const firstResponse = { target: 1, text: 'And then' };
-	// 	const secondResponse = { target: 2, text: 'Over here' };
-	// 	const responses = [ firstResponse, secondResponse ];
-
-	// 	renderer.render(<Response data={ responses } />);
-	// 	const output = renderer.getRenderOutput();
-	// 	expect(output.props.children).toEqual([
-	// 		makeResponse(0, firstResponse),
-	// 		makeResponse(1, secondResponse)
-	// 	]);
-	// });
-
 });

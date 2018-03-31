@@ -6,6 +6,7 @@ import { shallow } from 'enzyme';
 
 import Passage from './Passage';
 import CycleSpanList from './CycleSpanList';
+import ResponseList from './ResponseList';
 import snapshotData from './test_passage.json';
 
 describe('Passage - Smoke', () => {
@@ -43,6 +44,10 @@ describe('Passage - Render', () => {
 			callback={ callback } />;
 	}
 
+	const makeExpectedResponseList = () => {
+		return <ResponseList />;
+	}
+
 	it('does not render if not given data', () => {
 		const renderer = new ShallowRenderer();
 
@@ -76,11 +81,13 @@ describe('Passage - Render', () => {
 		};
 
 		const passage = shallow(<Passage data={ dummyPassage } />);
-		expect(passage.props().children).toEqual(
+		expect(passage.props().children).toEqual([
 			makeExpectedCycleSpanList(
 				makeExpectedListData(pid, null, null, null, text),
 				{},
-				passage.instance().updatePassage));
+				passage.instance().updatePassage),
+			makeExpectedResponseList()
+		]);
 	});
 
 	it('renders and passes along data fields', () => {
@@ -121,11 +128,13 @@ describe('Passage - Render', () => {
 		const wrapper = shallow(<Passage 
 			data={ makePassageData(data) } 
 			inventory={ inventory} />);
-		expect(wrapper.props().children).toEqual(
+		expect(wrapper.props().children).toEqual([
 			makeExpectedCycleSpanList(
 				data, 
 				inventory,
-				wrapper.instance().updatePassage));
+				wrapper.instance().updatePassage),
+			makeExpectedResponseList()
+		]);
 	});
 
 	it('renders with a complete data passage', () => {
@@ -167,7 +176,7 @@ describe('Passage - updatePassage', () => {
 
 });
 
-describe('Passage - advancePassage', () => {
+describe('Passage - setPassage', () => {
 
 	const data = { id: 42, text: 'test' };
 	const passageData = makePassageData(data);
@@ -184,7 +193,7 @@ describe('Passage - advancePassage', () => {
 
 		const newInventory = { unconventional: 2 };
 
-		passage.instance().advancePassage(newPassageData, newInventory);
+		passage.instance().setPassage(newPassageData, newInventory);
 		expect(passage.state().data).toEqual(newPassageData);
 		expect(passage.state().inventory).toEqual(newInventory);
 	});
@@ -206,7 +215,7 @@ describe('Passage - advancePassage', () => {
 			data={ passageData }
 			inventory={ inventory } />);
 
-		passage.instance().advancePassage(newPassageData, inventory);
+		passage.instance().setPassage(newPassageData, inventory);
 		expect(passage.state().data).toEqual(newPassageData);
 		expect(passage.state().inventory).toEqual(integratedInventory);
 	});

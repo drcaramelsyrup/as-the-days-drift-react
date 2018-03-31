@@ -34,33 +34,65 @@ describe('App - Render', () => {
 		expect(output.type).toBe('div');
 	});
 
-	it('contains a Passage element', () => {
+	it('does not contain a Passage without data', () => {
 		renderer.render(<App />);
 		const output = renderer.getRenderOutput();
-		expect(output.props.children).toContainEqual(<Passage />);
+		expect(output.props.children).toEqual(false);
+	});
+
+	it('contains a Passage element', () => {
+		const passage = {};
+		const pid = 0;
+		const data = { [pid]: passage };
+		renderer.render(<App data={ data } pid={ pid } />);
+		const output = renderer.getRenderOutput();
+		expect(output.props.children).toEqual(<Passage data={ passage } />);
 	});
 
 	it('correctly sets data passed into the Passage element', () => {
+		const pid = 1;
 		const testPassage = {
-			pid: 0,
+			pid: pid,
 			text: 'test text'
 		};
-		renderer.render(<App data={ testPassage } />);
+		const data = { [pid]: testPassage };
+		renderer.render(<App data={ data } pid={ pid } />);
 		const output = renderer.getRenderOutput();
-		expect(output.props.children).toContainEqual(<Passage data={ testPassage } />);
+		expect(output.props.children).toEqual(<Passage data={ testPassage } />);
 	});
 
-	// it('correctly converts whitespace to Unicode escape characters', () => {
-	// 	const testText = 'test \ttext\n \t \r text';
-	// 	const testTextUnicode = 'test \u0009text\u000a \u0009 \u000a text';
-	// 	const testPassage = { pid: 0, text: testText };
-	// 	const testPassageUnicode = { pid: 0, text: testTextUnicode };
-	// 	renderer.render(<App data={ testPassage } />);
-	// 	const output = renderer.getRenderOutput();
-	// 	expect(output.props.children).toContainEqual(
-	// 		<Passage data={ testPassageUnicode } />);
-		
-	// });
+	it('advances to the target Passage', () => {
+		const firstPid = 0;
+		const secondPid = 1;
+		const thirdPid = 2;
 
+		const makePassageData = (pid, text) => { return { pid: pid, text: text }; };
+		const firstPassageData = makePassageData(firstPid, 'test1');
+		const secondPassageData = makePassageData(secondPid, 'test2');
+		const thirdPassageData = makePassageData(thirdPid, 'test3');
+
+		const data = { 
+			[firstPid]: firstPassageData, 
+			[secondPid]: secondPassageData, 
+			[thirdPid]: thirdPassageData 
+		};
+		const app = shallow(<App data={ data } pid={ firstPid } />);
+		expect(app.props().children).toEqual(<Passage data={ firstPassageData } />);
+
+		app.instance().advancePassage(secondPid);
+		expect(app.state().pid).toBe(secondPid);
+
+		app.instance().advancePassage(firstPid);
+		expect(app.state().pid).toBe(firstPid);
+
+		app.instance().advancePassage(thirdPid);
+		expect(app.state().pid).toBe(thirdPid);
+	});
+
+	it('passes the advancePassage callback to the ResponseList', () => {
+
+	});
 
 });
+
+describe('App - Snapshot', () => {});
