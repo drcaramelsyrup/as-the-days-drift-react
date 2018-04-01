@@ -1,46 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CycleSpanList from './CycleSpanList';
 import ResponseList from './ResponseList';
 import { mergeActions } from './InventoryUtils';
 
-class Passage extends Component {
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			data: props.data,
-			inventory: props.inventory,
-			update: props.update,
-			advance: props.advance
-		};
-	}
-
-	render() {
-		// this.state.data != null && console.log(this.state.data.id);
-		return this.state.data != null && (<div>
-			{
-				createCycleSpanList(
-					createCycleSpanListData(
-						this.state.data.id, 
-						this.state.data.actions, 
-						this.state.data.conditionals, 
-						this.state.data.cycles, 
-						this.state.data.text),
-					this.state.inventory || {},
-					this.props.update) 
-			}
-			{
-				// We should not display responses if there are none for now
-				this.state.data.responses != null 
-					? createResponseList(
-						this.state.data.responses,
-						this.state.inventory || {},
-						this.props.advance)
-					: null
-			}
-		</div>);
-	}
-
+const Passage = (props) => {
+	// props.data != null && console.log(props.data.id);
+	return props.data != null && (<div>
+		{
+			createCycleSpanList(
+				createCycleSpanListData(
+					props.data.id, 
+					props.data.actions, 
+					props.data.conditionals, 
+					props.data.cycles, 
+					props.data.text),
+				props.inventory || {},
+				props.update) 
+		}
+		{
+			// We should not display responses if there are none for now
+			props.data.responses != null 
+				? createResponseList(
+					props.data.responses,
+					props.inventory || {},
+					props.advance)
+				: null
+		}
+	</div>);
 }
 
 const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
