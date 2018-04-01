@@ -68,10 +68,10 @@ const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
 }
 
 const createCycleSpanList = (data, inventory, callback) => {
-	return <CycleSpanList 
+	return (<CycleSpanList 
 		data={ data } 
 		inventory={ inventory } 
-		callback={ callback } />;
+		callback={ callback } />);
 }
 
 const createResponseList = (responses, inventory, callback) => {

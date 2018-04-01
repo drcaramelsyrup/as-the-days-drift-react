@@ -13,6 +13,7 @@ class App extends Component {
 		super(props);
 		this.state = {
 			data: props.data,
+			inventory: {},
 			pid: props.pid
 		};
 	}
@@ -30,14 +31,14 @@ class App extends Component {
 	renderPassage(pid) {
 		return (<Passage 
 			data={ this.getPassageData(pid) } 
+			inventory={ {} }
 			advancePassage={ this.advancePassage } />);
 	}
 
 	render() {
 		return (
 			<div className='App'>
-				{ this.state.data != null 
-					&& this.renderPassage(this.state.pid) }
+				{ this.state.data != null && this.renderPassage(this.state.pid) }
 			</div>
 		);
 	}

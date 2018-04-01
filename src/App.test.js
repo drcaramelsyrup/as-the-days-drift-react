@@ -31,7 +31,10 @@ describe('App - Render', () => {
 	});
 
 	const makePassage = (passageData, advancePassage) => {
-		return <Passage data={ passageData } advancePassage={ advancePassage } />;
+		return (<Passage 
+			data={ passageData } 
+			advancePassage={ advancePassage } 
+			inventory={ {} } />);
 	}
 
 	it('renders as a div', () => {
