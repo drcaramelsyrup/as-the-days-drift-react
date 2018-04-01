@@ -116,6 +116,30 @@ describe('Passage - Render', () => {
 		]);
 	});
 
+	it('passes along the advancePassage callback to the ResponseList', () => {
+		const text = 'test text';
+		const pid = 13; 
+		const dummyPassage = {
+			pid: pid,
+			text: text, 
+			responses: {}
+		};
+		const advancePassage = (num) => { return true; };
+
+		const passage = shallow(<Passage 
+			data={ dummyPassage } advancePassage={ advancePassage }/>);
+		expect(passage.props().children).toEqual([
+			makeExpectedCycleSpanList(
+				makeExpectedListData(pid, null, null, null, text),
+				{},
+				passage.instance().updatePassage),
+			makeExpectedResponseList(
+				{},
+				{},
+				advancePassage)
+		]);
+	});
+
 	it('renders and passes along data fields', () => {
 		const inventory = { trinkets: 2 };
 		const pid = 0;
