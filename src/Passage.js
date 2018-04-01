@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CycleSpanList from './CycleSpanList';
 import ResponseList from './ResponseList';
 import { mergeActions } from './InventoryUtils';
 
-class Passage extends React.Component {
+class Passage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -28,11 +28,12 @@ class Passage extends React.Component {
 	}
 
 	render() {
+		// console.log(this.state.data.pid);
 		return this.state.data != null && (<div>
 			{
 				createCycleSpanList(
 					createCycleSpanListData(
-						this.state.data.pid, 
+						this.state.data.id, 
 						this.state.data.actions, 
 						this.state.data.conditionals, 
 						this.state.data.cycles, 
@@ -68,6 +69,7 @@ const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
 }
 
 const createCycleSpanList = (data, inventory, callback) => {
+	// console.log(data);
 	return (<CycleSpanList 
 		data={ data } 
 		inventory={ inventory } 

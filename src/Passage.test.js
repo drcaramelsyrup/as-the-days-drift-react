@@ -79,7 +79,7 @@ describe('Passage - Render', () => {
 		const text = 'test text';
 		const pid = 215; 
 		const dummyPassage = {
-			pid: pid,
+			id: pid,
 			text: text 
 		};
 
@@ -98,7 +98,7 @@ describe('Passage - Render', () => {
 		const pid = 215; 
 		const responses = [{ target: 0, text: 'text' }];
 		const dummyPassage = {
-			pid: pid,
+			id: pid,
 			text: text, 
 			responses: responses
 		};
@@ -120,7 +120,7 @@ describe('Passage - Render', () => {
 		const text = 'test text';
 		const pid = 13; 
 		const dummyPassage = {
-			pid: pid,
+			id: pid,
 			text: text, 
 			responses: {}
 		};
@@ -212,7 +212,7 @@ describe('Passage - updatePassage', () => {
 	const pid = 42;
 	const text = 'update passage ';
 	const dummyPassage = {
-		pid: pid,
+		id: pid,
 		text: text
 	};
 

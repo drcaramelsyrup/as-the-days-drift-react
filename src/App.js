@@ -19,20 +19,25 @@ class App extends Component {
 	}
 
 	advancePassage = (pid) => {
+		// console.log(pid);
 		this.setState({ pid: pid });
 	}
 
 	getPassageData(pid) {
+		// console.log(this);
+		// console.log(this.state.data[pid]);
 		return this.state.data.hasOwnProperty(pid)
 			? this.state.data[pid]
 			: null;
 	}
 
 	renderPassage(pid) {
-		return (<Passage 
+		const newPassage = (<Passage 
 			data={ this.getPassageData(pid) } 
 			inventory={ {} }
 			advancePassage={ this.advancePassage } />);
+		// console.log(newPassage);
+		return newPassage;
 	}
 
 	render() {
