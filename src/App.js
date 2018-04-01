@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Passage from './Passage';
+import { mergeActions } from './InventoryUtils';
 
 /* Wishlist */
 // - ImmutableJS
@@ -12,22 +13,32 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: props.data,
-			inventory: {},
+			inventory: props.inventory || {},
 			pid: props.pid
 		};
 	}
 
 	advancePassage = (pid) => {
 		// console.log(pid);
-		this.setState({ pid: pid });
+		// this.setState({ pid: pid });
+
+		const { actions, ...inventory } = this.state.inventory;
+
+		this.setState({
+			pid: pid,
+			inventory: mergeActions(inventory, actions) 
+		});
+	}
+
+	updatePassage = (newInventory) => {
+		this.setState({ inventory: newInventory });
 	}
 
 	getPassageData(pid) {
 		// console.log(this);
 		// console.log(this.state.data[pid]);
-		return this.state.data.hasOwnProperty(pid)
-			? this.state.data[pid]
+		return this.props.data.hasOwnProperty(pid)
+			? this.props.data[pid]
 			: null;
 	}
 
@@ -35,15 +46,15 @@ class App extends Component {
 		const newPassage = (<Passage 
 			data={ this.getPassageData(pid) } 
 			inventory={ {} }
-			advancePassage={ this.advancePassage } />);
-		// console.log(newPassage);
+			update={ this.updatePassage }
+			advance={ this.advancePassage } />);
 		return newPassage;
 	}
 
 	render() {
 		return (
 			<div className='App'>
-				{ this.state.data != null && this.renderPassage(this.state.pid) }
+				{ this.props.data != null && this.renderPassage(this.state.pid) }
 			</div>
 		);
 	}

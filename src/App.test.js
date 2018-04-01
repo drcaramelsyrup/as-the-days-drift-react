@@ -30,10 +30,11 @@ describe('App - Render', () => {
 		renderer.unmount();
 	});
 
-	const makePassage = (passageData, advancePassage) => {
+	const makePassage = (passageData, updatePassage, advancePassage) => {
 		return (<Passage 
 			data={ passageData } 
-			advancePassage={ advancePassage } 
+			update={ updatePassage }
+			advance={ advancePassage } 
 			inventory={ {} } />);
 	}
 
@@ -55,7 +56,10 @@ describe('App - Render', () => {
 		const data = { [pid]: passage };
 		const app = shallow(<App data={ data } pid={ pid } />);
 		expect(app.props().children).toEqual(
-			makePassage(passage, app.instance().advancePassage));
+			makePassage(
+				passage, 
+				app.instance().updatePassage,
+				app.instance().advancePassage));
 	});
 
 	it('correctly sets data passed into the Passage element', () => {
@@ -67,36 +71,10 @@ describe('App - Render', () => {
 		const data = { [pid]: testPassage };
 		const app = shallow(<App data={ data } pid={ pid } />);
 		expect(app.props().children).toEqual(
-			makePassage(testPassage, app.instance().advancePassage));
-	});
-
-	it('advances to the target Passage', () => {
-		const firstPid = 0;
-		const secondPid = 1;
-		const thirdPid = 2;
-
-		const makePassageData = (pid, text) => { return { pid: pid, text: text }; };
-		const firstPassageData = makePassageData(firstPid, 'test1');
-		const secondPassageData = makePassageData(secondPid, 'test2');
-		const thirdPassageData = makePassageData(thirdPid, 'test3');
-
-		const data = { 
-			[firstPid]: firstPassageData, 
-			[secondPid]: secondPassageData, 
-			[thirdPid]: thirdPassageData 
-		};
-		const app = shallow(<App data={ data } pid={ firstPid } />);
-		expect(app.props().children).toEqual(
-			makePassage(firstPassageData, app.instance().advancePassage));
-
-		app.instance().advancePassage(secondPid);
-		expect(app.state().pid).toBe(secondPid);
-
-		app.instance().advancePassage(firstPid);
-		expect(app.state().pid).toBe(firstPid);
-
-		app.instance().advancePassage(thirdPid);
-		expect(app.state().pid).toBe(thirdPid);
+			makePassage(
+				testPassage, 
+				app.instance().updatePassage,
+				app.instance().advancePassage));
 	});
 
 });

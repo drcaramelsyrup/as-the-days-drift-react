@@ -10,25 +10,13 @@ class Passage extends Component {
 		this.state = {
 			data: props.data,
 			inventory: props.inventory,
-			advancePassage: props.advancePassage
+			update: props.update,
+			advance: props.advance
 		};
 	}
 
-	setPassage = (newData, newInventory) => {
-		const { actions, ...inventory } = newInventory;
-
-		this.setState({ 
-			data: newData, 
-			inventory: mergeActions(inventory, actions) 
-		});
-	}
-
-	updatePassage = (newInventory) => {
-		this.setState({ inventory: newInventory });
-	}
-
 	render() {
-		// console.log(this.state.data.pid);
+		// this.state.data != null && console.log(this.state.data.id);
 		return this.state.data != null && (<div>
 			{
 				createCycleSpanList(
@@ -39,7 +27,7 @@ class Passage extends Component {
 						this.state.data.cycles, 
 						this.state.data.text),
 					this.state.inventory || {},
-					this.updatePassage) 
+					this.props.update) 
 			}
 			{
 				// We should not display responses if there are none for now
@@ -47,7 +35,7 @@ class Passage extends Component {
 					? createResponseList(
 						this.state.data.responses,
 						this.state.inventory || {},
-						this.state.advancePassage)
+						this.props.advance)
 					: null
 			}
 		</div>);
