@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
+import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
+
 import App from './App';
 import Passage from './Passage';
-import data from './test_passage.json';
+import test_data from './test_appdata.json';
 
 describe('App - Smoke', () => {
 
@@ -96,4 +98,13 @@ describe('App - Render', () => {
 
 });
 
-describe('App - Snapshot', () => {});
+describe('App - Snapshot', () => {
+
+	it('renders a complete sequence of passages', () => {
+		const startIdx = 26;
+		const tree = TestRenderer.create(
+			<App data={ test_data } pid={ startIdx } />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+
+});
