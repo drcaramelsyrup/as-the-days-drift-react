@@ -28,6 +28,10 @@ describe('App - Render', () => {
 		renderer.unmount();
 	});
 
+	const makePassage = (passageData, advancePassage) => {
+		return <Passage data={ passageData } advancePassage={ advancePassage } />;
+	}
+
 	it('renders as a div', () => {
 		renderer.render(<App />);
 		const output = renderer.getRenderOutput();
@@ -44,9 +48,9 @@ describe('App - Render', () => {
 		const passage = {};
 		const pid = 0;
 		const data = { [pid]: passage };
-		renderer.render(<App data={ data } pid={ pid } />);
-		const output = renderer.getRenderOutput();
-		expect(output.props.children).toEqual(<Passage data={ passage } />);
+		const app = shallow(<App data={ data } pid={ pid } />);
+		expect(app.props().children).toEqual(
+			makePassage(passage, app.instance().advancePassage));
 	});
 
 	it('correctly sets data passed into the Passage element', () => {
@@ -56,9 +60,9 @@ describe('App - Render', () => {
 			text: 'test text'
 		};
 		const data = { [pid]: testPassage };
-		renderer.render(<App data={ data } pid={ pid } />);
-		const output = renderer.getRenderOutput();
-		expect(output.props.children).toEqual(<Passage data={ testPassage } />);
+		const app = shallow(<App data={ data } pid={ pid } />);
+		expect(app.props().children).toEqual(
+			makePassage(testPassage, app.instance().advancePassage));
 	});
 
 	it('advances to the target Passage', () => {
@@ -77,7 +81,8 @@ describe('App - Render', () => {
 			[thirdPid]: thirdPassageData 
 		};
 		const app = shallow(<App data={ data } pid={ firstPid } />);
-		expect(app.props().children).toEqual(<Passage data={ firstPassageData } />);
+		expect(app.props().children).toEqual(
+			makePassage(firstPassageData, app.instance().advancePassage));
 
 		app.instance().advancePassage(secondPid);
 		expect(app.state().pid).toBe(secondPid);
@@ -87,10 +92,6 @@ describe('App - Render', () => {
 
 		app.instance().advancePassage(thirdPid);
 		expect(app.state().pid).toBe(thirdPid);
-	});
-
-	it('passes the advancePassage callback to the Passage', () => {
-
 	});
 
 });

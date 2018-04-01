@@ -17,7 +17,7 @@ class App extends Component {
 		};
 	}
 
-	advancePassage(pid) {
+	advancePassage = (pid) => {
 		this.setState({ pid: pid });
 	}
 
@@ -27,11 +27,17 @@ class App extends Component {
 			: null;
 	}
 
+	renderPassage(pid) {
+		return (<Passage 
+			data={ this.getPassageData(pid) } 
+			advancePassage={ this.advancePassage } />);
+	}
+
 	render() {
 		return (
 			<div className='App'>
 				{ this.state.data != null 
-					&& <Passage data={ this.getPassageData(this.state.pid) } /> }
+					&& this.renderPassage(this.state.pid) }
 			</div>
 		);
 	}
