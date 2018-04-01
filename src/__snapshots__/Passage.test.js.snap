@@ -16,5 +16,13 @@ exports[`Passage - Render renders with a complete data passage 1`] = `
       He'd still forget his homework at your house, a collection of unintelligible scribbles, and then forget to pick it up the next day
     </span>
   </div>
+  <div>
+    <div
+      className="response"
+      onClick={[Function]}
+    >
+      And then
+    </div>
+  </div>
 </div>
 `;

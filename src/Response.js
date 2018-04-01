@@ -10,7 +10,7 @@ const Response = (props) => {
 }
 
 const callbackOnTarget = (callback, target) => {
-	return () => { callback(target); }
+	return () => { callback(target); };
 }
 
 

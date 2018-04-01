@@ -4,6 +4,7 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 import { shallow } from 'enzyme';
 
 import ResponseList from './ResponseList';
+import Response from './Response';
 
 describe('ResponseList - Smoke', () => {
 
@@ -54,7 +55,7 @@ describe('ResponseList - Render', () => {
 		const firstResponse = { target: 1, text: 'And then' };
 		const secondResponse = { target: 2, text: 'Over here' };
 		const responses = [ firstResponse, secondResponse ];
-		const callback = (num) => { return num; }
+		const callback = (num) => { return num; };
 
 		renderer.render(<ResponseList data={ responses } callback={ callback } />);
 		const output = renderer.getRenderOutput();

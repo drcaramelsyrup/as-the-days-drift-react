@@ -10,7 +10,7 @@ class Passage extends React.Component {
 		this.state = {
 			data: props.data,
 			inventory: props.inventory,
-			callback: props.callback
+			advancePassage: props.advancePassage
 		};
 	}
 
@@ -40,7 +40,15 @@ class Passage extends React.Component {
 					this.state.inventory || {},
 					this.updatePassage) 
 			}
-			<ResponseList />
+			{
+				// We should not display responses if there are none for now
+				this.state.data.responses != null 
+					? createResponseList(
+						this.state.data.responses,
+						this.state.inventory || {},
+						this.state.advancePassage)
+					: null
+			}
 		</div>);
 	}
 
@@ -63,6 +71,13 @@ const createCycleSpanList = (data, inventory, callback) => {
 	return <CycleSpanList 
 		data={ data } 
 		inventory={ inventory } 
+		callback={ callback } />;
+}
+
+const createResponseList = (responses, inventory, callback) => {
+	return <ResponseList 
+		data={ responses }
+		inventory={ inventory }
 		callback={ callback } />;
 }
 

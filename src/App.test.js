@@ -89,7 +89,7 @@ describe('App - Render', () => {
 		expect(app.state().pid).toBe(thirdPid);
 	});
 
-	it('passes the advancePassage callback to the ResponseList', () => {
+	it('passes the advancePassage callback to the Passage', () => {
 
 	});
 

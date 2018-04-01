@@ -1,4 +1,5 @@
 import React from 'react';
+import Response from './Response';
 import { matchesQuery } from './InventoryUtils';
 
 const ResponseList = (props) => {
@@ -11,10 +12,10 @@ const makeResponses = (data, inventory, callback) => {
 		const matches = matchesQuery(datum.conditions, inventory);
 		return matches 
 			? list.concat(
-				[ <Response 
+				[ (<Response
 					key={ 'response'+idx } 
 					data={ datum } 
-					callback={ callback } /> ])
+					callback={ callback } />) ])
 			: list;
 	}, []);
 }

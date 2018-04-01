@@ -44,8 +44,11 @@ describe('Passage - Render', () => {
 			callback={ callback } />;
 	}
 
-	const makeExpectedResponseList = () => {
-		return <ResponseList />;
+	const makeExpectedResponseList = (data, inventory, callback) => {
+		return <ResponseList 
+			data={ data }
+			inventory={ inventory }
+			callback={ callback } />;
 	}
 
 	it('does not render if not given data', () => {
@@ -73,7 +76,7 @@ describe('Passage - Render', () => {
 	});
 
 	it('renders with a simple passage id and text', () => {
-		let text = 'test text';
+		const text = 'test text';
 		const pid = 215; 
 		const dummyPassage = {
 			pid: pid,
@@ -85,14 +88,40 @@ describe('Passage - Render', () => {
 			makeExpectedCycleSpanList(
 				makeExpectedListData(pid, null, null, null, text),
 				{},
+				passage.instance().updatePassage), 
+			null
+		]);
+	});
+
+	it('renders with a simple passage id, text, and responses', () => {
+		const text = 'test text';
+		const pid = 215; 
+		const responses = [{ target: 0, text: 'text' }];
+		const dummyPassage = {
+			pid: pid,
+			text: text, 
+			responses: responses
+		};
+
+		const passage = shallow(<Passage data={ dummyPassage } />);
+		expect(passage.props().children).toEqual([
+			makeExpectedCycleSpanList(
+				makeExpectedListData(pid, null, null, null, text),
+				{},
 				passage.instance().updatePassage),
-			makeExpectedResponseList()
+			makeExpectedResponseList(
+				responses,
+				{},
+				passage.state().advancePassage)
 		]);
 	});
 
 	it('renders and passes along data fields', () => {
 		const inventory = { trinkets: 2 };
 		const pid = 0;
+		const responses = [
+			{ text: 'response', target: 1 }, { text: 'response2', target: 3 }
+		];
 		const data = {
 			actions: {
 				learned: 2
@@ -122,23 +151,33 @@ describe('Passage - Render', () => {
 				]
 			},
 			text: 'test text',
-			id: pid
+			id: pid,
+			responses: responses
 		};
 
 		const wrapper = shallow(<Passage 
 			data={ makePassageData(data) } 
-			inventory={ inventory} />);
+			inventory={ inventory } />);
 		expect(wrapper.props().children).toEqual([
 			makeExpectedCycleSpanList(
-				data, 
+				makeExpectedListData(
+					data.id, 
+					data.actions, 
+					data.conditionals, 
+					data.cycles, 
+					data.text), 
 				inventory,
 				wrapper.instance().updatePassage),
-			makeExpectedResponseList()
+			makeExpectedResponseList(
+				responses, 
+				inventory,
+				wrapper.state().advancePassage)
 		]);
 	});
 
 	it('renders with a complete data passage', () => {
-		const tree = TestRenderer.create(<Passage data={ snapshotData } />).toJSON();
+		const tree = TestRenderer.create(
+			<Passage data={ snapshotData } />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
