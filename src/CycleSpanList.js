@@ -177,18 +177,20 @@ const isValidString = (str) => {
 }
 
 // Callback to return updated inventory when advancing cycle
-const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
-	const nextIdx = nextValidCycleIdx(cycleId, currentCycleIdx, cycleData, inventory);
-
+const handleNextCycle = (cycleId, nextCycleIdx, cycleData, inventory) => {
 	const oldCycles = inventory.cycles || {};
+	const currentCycleIdx = oldCycles.hasOwnProperty(cycleId)
+		? oldCycles[cycleId]
+		: 0;
+
 	const allExceptCycleId = allExcept(oldCycles, cycleId);
 	const newCycles = oldCycles.hasOwnProperty(cycleId)
-		? { ...allExceptCycleId, [cycleId]: nextIdx }
-		: { ...oldCycles, [cycleId]: nextIdx };
+		? { ...allExceptCycleId, [cycleId]: nextCycleIdx }
+		: { ...oldCycles, [cycleId]: nextCycleIdx };
 
 	const newActions = mergeActions(
 		removeActions(inventory.actions, cycleData[currentCycleIdx].actions),
-		cycleData[nextIdx].actions);
+		cycleData[nextCycleIdx].actions);
 
 	const { actions, cycles, ...otherInventory } = inventory;
 	return { ...otherInventory, cycles: newCycles, actions: newActions };
@@ -196,8 +198,13 @@ const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
 
 const cycleSpanUpdateFunction = (cycle, inventory, callback) => {
 	return () => {
+		const nextCycleIdx = nextValidCycleIdx(
+			cycle.cycle_id, cycle.cycle_idx, cycle.data, inventory);
+		if (nextCycleIdx === cycle.cycle_idx)
+			return;
+
 		callback(handleNextCycle(
-			cycle.cycle_id, cycle.cycle_idx, cycle.data, inventory));
+			cycle.cycle_id, nextCycleIdx, cycle.data, inventory));
 	}
 }
 

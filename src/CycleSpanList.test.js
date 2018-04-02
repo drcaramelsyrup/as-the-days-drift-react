@@ -496,8 +496,17 @@ describe('CycleSpanList - Render', () => {
 
 	describe('CycleSpanList - cycleSpanUpdateFunction', () => {
 
-		it('does not mutate the inventory without actions or on a null cycle', () => {
+		it('does not call the callback on a pure text cycle', () => {
+			const inventory = { 
+				romantic: 3,
+				cycles: {}
+			};
+			const cycle = makeCycle(null, 0, makeCycleData('test text'));
 
+			let callbackCalled = false;
+			const callback = (nextInventory) => { callbackCalled = true; }
+			cycleSpanUpdateFunction(cycle, inventory, callback)();
+			expect(callbackCalled).toBe(false);
 		});
 
 		it('will update the cycle index appropriately', () => {
