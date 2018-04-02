@@ -39,8 +39,8 @@ class App extends Component {
 
 	renderPassage(pid) {
 		const newPassage = (<Passage 
-			data={ this.getPassageData(pid) } 
-			inventory={ {} }
+			data={ this.getPassageData(pid) }
+			inventory={ this.state.inventory }
 			update={ this.updatePassage }
 			advance={ this.advancePassage } />);
 		return newPassage;

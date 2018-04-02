@@ -1,6 +1,6 @@
 import React from 'react';
 import CycleSpan from './CycleSpan';
-import { mergeActions, removeActions, matchesQuery } from './InventoryUtils';
+import { mergeActions, removeActions, matchesQuery, allExcept } from './InventoryUtils';
 
 const CycleSpanList = (props) => {
 	return <div>{
@@ -140,6 +140,8 @@ const nextValidCycleIdx = (cycleId, currentIdx, cycleData, inventory) => {
 
 const getValidCycleIdx = (cycleId, desiredIdx, cycleData, inventory) => {
 	// Starting from the desired idx...
+	if (desiredIdx == null)
+		desiredIdx = 0;
 	for (let i = desiredIdx; i < cycleData.length; ++i) {
 		const datum = cycleData[i];
 		if (matchesQuery(datum.conditions, inventory))
@@ -179,15 +181,19 @@ const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
 	const nextIdx = nextValidCycleIdx(cycleId, currentCycleIdx, cycleData, inventory);
 
 	const oldCycles = inventory.cycles || {};
+	const allExceptCycleId = allExcept(oldCycles, cycleId);
 	const newCycles = oldCycles.hasOwnProperty(cycleId)
-		? { ...(Object.keys(oldCycles).filter(id => id !== cycleId)), [cycleId]: nextIdx }
+		? { ...allExceptCycleId, [cycleId]: nextIdx }
 		: { ...oldCycles, [cycleId]: nextIdx };
 
+	console.log(inventory.actions);
+	console.log(cycleData[currentCycleIdx].actions);
 	const newActions = mergeActions(
 		removeActions(inventory.actions, cycleData[currentCycleIdx].actions),
 		cycleData[nextIdx].actions);
 
 	const { actions, cycles, ...otherInventory } = inventory;
+	// console.log({ ...otherInventory, cycles: newCycles, actions: newActions });
 	return { ...otherInventory, cycles: newCycles, actions: newActions };
 }
 

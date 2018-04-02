@@ -14,7 +14,7 @@ const Passage = (props) => {
 					props.data.cycles, 
 					props.data.text),
 				inventory,
-				props.update) 
+				props.update)
 		}
 		{
 			// We should not display responses if there are none for now

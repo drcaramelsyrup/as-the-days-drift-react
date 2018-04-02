@@ -14,8 +14,12 @@ const isValidCycle = (cycle) => {
 		&& cycle.data.length > 0;
 }
 
+const isValidCycleIdx = (cycleIdx) => {
+	return cycleIdx != null && cycleIdx >= 0;
+}
+
 const getCycleText = (cycle) => {
-	const cycleIdx = cycle.cycle_idx != null
+	const cycleIdx = isValidCycleIdx(cycle.cycle_idx)
 		? cycle.cycle_idx
 		: 0;
 	return cycle.data[cycleIdx].text;

@@ -5,6 +5,7 @@ const mergeActions = (actions, newActions) => {
 		return actions;
 
 	const currentActions = Object.assign({}, actions);
+	console.log(currentActions);
 	return Object.keys(newActions).reduce(
 		(ret, key) => {
 			const val = newActions[key];
@@ -24,15 +25,13 @@ const removeActions = (actions, actionsToRemove) => {
 
 	return Object.keys(actions).reduce(
 		(ret, key) => {
-			const retVal = ret[key];
 			if (actionsToRemove.hasOwnProperty(key)) {
 				const val = actionsToRemove[key];
 				if (isNumeric(val))
-					ret[key] = actions[key] - val;
-				return ret;
+					return { ...allExcept(ret, key), [key]: actions[key] - val };
+				return { ...ret };
 			}
-			ret[key] = retVal;
-			return ret;
+			return { ...ret, [key]: actions[key] };
 		}, {});
 }
 
@@ -67,8 +66,16 @@ const matchesQuery = (conditions, variablesToCheck) => {
 	}, true);
 }
 
+const allExcept = (inObject, excludedKey) => {
+	return Object.keys(inObject)
+		.filter(key => key !== excludedKey)
+		.reduce((acc, key) => { 
+			return { ...acc, [key]: inObject[key] }; 
+		}, {});
+}
+
 const isNumeric = (number) => {
 	return !isNaN(parseFloat(number)) && isFinite(number);
 }
 
-export { mergeActions, removeActions, matchesQuery };
+export { mergeActions, removeActions, matchesQuery, allExcept };

@@ -496,29 +496,37 @@ describe('CycleSpanList - Render', () => {
 
 	describe('CycleSpanList - cycleSpanUpdateFunction', () => {
 
+		it('does not mutate the inventory without actions or on a null cycle', () => {
+
+		});
+
 		it('will update the cycle index appropriately', () => {
-			const cycleId = 'cycleid';
-			const cycleIdx = 0;
+			const firstCycleId = 'cycleid';
+			const firstCycleIdx = 0;
+			const secondCycleId = 'cycleid2';
+			const secondCycleIdx = 0;
 
 			const inventory = { 
 				romantic: 3,
 				cycles: {
-					[cycleId]: cycleIdx
+					[firstCycleId]: firstCycleIdx,
+					[secondCycleId]: secondCycleIdx
 				}
 			};
 			const newInventory = {
 				romantic: 1, complacent: 1,
 				cycles: {
-					[cycleId]: cycleIdx + 1
+					[firstCycleId]: firstCycleIdx + 1,
+					[secondCycleId]: secondCycleIdx
 				}
 			};
 
 			const firstText = 'test text 1';
 			const secondText = 'test text 2';
-			const cycle = makeCycle(cycleId, cycleIdx,
+			const cycle = makeCycle(firstCycleId, firstCycleIdx,
 				makeCycleData(firstText),
 				makeCycleData(secondText));
-			const newCycle = makeCycle(cycleId, cycleIdx + 1,
+			const newCycle = makeCycle(firstCycleId, firstCycleIdx + 1,
 				makeCycleData(firstText),
 				makeCycleData(secondText));
 
@@ -526,15 +534,21 @@ describe('CycleSpanList - Render', () => {
 			// Even though they have redundant information.
 			// The ultimate setup will have to depend on the ultimate data binding.
 
-			let callbackIdx = -1;
+			let callbackCycles = {};
 			const callback = (nextInventory) => {
-				callbackIdx = nextInventory.cycles[cycleId];
+				callbackCycles = nextInventory.cycles;
 			};
 
 			cycleSpanUpdateFunction(cycle, inventory, callback)();
-			expect(callbackIdx).toEqual(cycleIdx + 1);
+			expect(callbackCycles).toEqual({
+				[firstCycleId]: firstCycleIdx + 1,
+				[secondCycleId]: secondCycleIdx
+			});
 			cycleSpanUpdateFunction(newCycle, newInventory, callback)();
-			expect(callbackIdx).toEqual(cycleIdx);
+			expect(callbackCycles).toEqual({
+				[firstCycleId]: firstCycleIdx,
+				[secondCycleId]: secondCycleIdx
+			});
 		});
 
 		it('will accumulate actions in the new inventory', () => {
@@ -555,6 +569,10 @@ describe('CycleSpanList - Render', () => {
 				practical: 0,
 				var_possession: 'crystal'
 			};
+			const secondAfterFirstActions = {
+				romantic: 2,
+				practical: 1
+			};
 
 			const firstText = 'test text 1';
 			const secondText = 'test text 2';
@@ -573,6 +591,9 @@ describe('CycleSpanList - Render', () => {
 
 			cycleSpanUpdateFunction(newCycle, nextInventory, testingCallback)();
 			expect(nextInventory.actions).toEqual(firstAfterSecondActions);
+
+			cycleSpanUpdateFunction(cycle, nextInventory, testingCallback)();
+			expect(nextInventory.actions).toEqual(secondAfterFirstActions);
 
 		});
 
