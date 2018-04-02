@@ -5,15 +5,15 @@ const mergeActions = (actions, newActions) => {
 		return actions;
 
 	const currentActions = Object.assign({}, actions);
-	console.log(currentActions);
 	return Object.keys(newActions).reduce(
 		(ret, key) => {
 			const val = newActions[key];
-			if (ret.hasOwnProperty(key) && isNumeric(val))
-				ret[key] += val;
-			else
-				ret[key] = val;
-			return ret;
+			if (ret.hasOwnProperty(key)) {
+				if (isNumeric(val))
+					return { ...allExcept(ret, key), [key]: ret[key] + val };
+				return { ...allExcept(ret, key), [key]: val };
+			}
+			return { ...ret, [key]: val };
 		}, currentActions);
 }
 

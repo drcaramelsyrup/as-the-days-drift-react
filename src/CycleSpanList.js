@@ -186,14 +186,11 @@ const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
 		? { ...allExceptCycleId, [cycleId]: nextIdx }
 		: { ...oldCycles, [cycleId]: nextIdx };
 
-	console.log(inventory.actions);
-	console.log(cycleData[currentCycleIdx].actions);
 	const newActions = mergeActions(
 		removeActions(inventory.actions, cycleData[currentCycleIdx].actions),
 		cycleData[nextIdx].actions);
 
 	const { actions, cycles, ...otherInventory } = inventory;
-	// console.log({ ...otherInventory, cycles: newCycles, actions: newActions });
 	return { ...otherInventory, cycles: newCycles, actions: newActions };
 }
 
