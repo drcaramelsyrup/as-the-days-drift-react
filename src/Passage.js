@@ -1,7 +1,6 @@
 import React from 'react';
 import CycleSpanList from './CycleSpanList';
 import ResponseList from './ResponseList';
-import { mergeActions } from './InventoryUtils';
 
 const Passage = (props) => {
 	const inventory = props.inventory || {};

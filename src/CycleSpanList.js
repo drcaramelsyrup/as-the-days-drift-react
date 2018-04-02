@@ -7,7 +7,7 @@ const CycleSpanList = (props) => {
 		props.data != null && getCycleSpans(
 			props.data, 
 			props.inventory,
-			props.callback)
+			props.callback)	
 	}</div>;
 }
 
@@ -19,7 +19,7 @@ const getCycleSpans = (data, inventory = {}, callback = null) => {
 	return acc.concat([ <CycleSpan 
 		key={ 'cyclespan' + idx } 
 		cycle={ cycle }
-		callback={ callback }
+		callback={ cycleSpanUpdateFunction(cycle, inventory, callback) }
 	/> ]);
   }, []);
 
@@ -177,11 +177,18 @@ const isValidString = (str) => {
 // Callback to return updated inventory when advancing cycle
 const handleNextCycle = (cycleId, currentCycleIdx, cycleData, inventory) => {
 	const nextIdx = nextValidCycleIdx(cycleId, currentCycleIdx, cycleData, inventory);
-	const newInventory = Object.assign({}, inventory);
-	newInventory.cycles[cycleId] = nextIdx;
-	newInventory.actions = removeActions(newInventory.actions, cycleData[currentCycleIdx].actions);
-	newInventory.actions = mergeActions(newInventory.actions, cycleData[nextIdx].actions);
-	return newInventory;
+
+	const oldCycles = inventory.cycles || {};
+	const newCycles = oldCycles.hasOwnProperty(cycleId)
+		? { ...(Object.keys(oldCycles).filter(id => id !== cycleId)), [cycleId]: nextIdx }
+		: { ...oldCycles, [cycleId]: nextIdx };
+
+	const newActions = mergeActions(
+		removeActions(inventory.actions, cycleData[currentCycleIdx].actions),
+		cycleData[nextIdx].actions);
+
+	const { actions, cycles, ...otherInventory } = inventory;
+	return { ...otherInventory, cycles: newCycles, actions: newActions };
 }
 
 const cycleSpanUpdateFunction = (cycle, inventory, callback) => {

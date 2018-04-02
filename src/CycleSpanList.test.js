@@ -55,10 +55,18 @@ describe('CycleSpanList - Render', () => {
 			cycle, inventory, callback
 		);
 
-		return <CycleSpan 
+		return (<CycleSpan 
 			key={ 'cyclespan' + keyNum } 
 			cycle={ cycle }
-			callback={ callback } />
+			callback={ callback } />);
+	}
+
+	const getCallbacks = (cycleSpans) => {
+		// Because anonymous functions can't be tested for functional equality...
+		// We'll grab them from the elements themselves for object identity comparison
+		return cycleSpans.map((span) => {
+			return span.props.callback;
+		});
 	}
 
 	it('renders as a div container', () => {
@@ -76,20 +84,18 @@ describe('CycleSpanList - Render', () => {
 
 	it('renders with simple text', () => {
 		let text = 'test text';
-		const dummyPassageData = {
-			text: text 
-		};
+		const dummyPassageData = { text: text };
 
 		renderer.render(<CycleSpanList data={ dummyPassageData } />);
 		const output = renderer.getRenderOutput();
 
 		const spanIdx = 0;
 		const noInventory = undefined;
-		const noCallback = null;
+		const callbacks = getCallbacks(output.props.children);
 		expect(output.props.children).toEqual(
 			[ makeCycleSpan(
 				makeTextCycle(text), 
-				noInventory, noCallback, spanIdx) ]
+				noInventory, callbacks[spanIdx], spanIdx) ]
 		);
 	});
 
@@ -118,18 +124,18 @@ describe('CycleSpanList - Render', () => {
 		let spanIdx = 0;
 		const cycleIdx = 0;
 		const noInventory = undefined;
-		const noCallback = null;
+		const callbacks = getCallbacks(output.props.children);
 		expect(output.props.children).toEqual([
 			makeCycleSpan(
 				makeTextCycle(textBeforeLink),
-				noInventory, noCallback, spanIdx++),
+				noInventory, callbacks[spanIdx], spanIdx++),
 			makeCycleSpan(
 				makeCycle(cycleId, cycleIdx, 
 					makeCycleData(testLinkText)),
-				noInventory, noCallback, spanIdx++),
+				noInventory, callbacks[spanIdx], spanIdx++),
 			makeCycleSpan(
 				makeTextCycle(textAfterLink),
-				noInventory, noCallback, spanIdx++),
+				noInventory, callbacks[spanIdx], spanIdx++),
 		]);
 	});
 
@@ -165,13 +171,13 @@ describe('CycleSpanList - Render', () => {
 
 		const spanIdx = 0;
 		
-		const noCallback = null;
+		const callbacks = getCallbacks(output.props.children);
 		expect(output.props.children).toEqual([
 			makeCycleSpan(
 				makeCycle(cycleId, cycleIdx,
 					makeCycleData(firstLinkText),
 					makeCycleData(secondLinkText)),
-				inventory, noCallback, spanIdx)
+				inventory, callbacks[spanIdx], spanIdx)
 		]);
 	});
 
@@ -236,25 +242,25 @@ describe('CycleSpanList - Render', () => {
 		const output = renderer.getRenderOutput();
 		let spanIdx = 0;
 		const cycles = dummyPassageData.cycles;
-		const noCallback = null;
+		const callbacks = getCallbacks(output.props.children);
 		expect(output.props.children).toEqual([
 			makeCycleSpan(
 				makeCycle(firstCycleId, firstCycleIdx, 
 					makeCycleData(firstText1),
 					makeCycleData(firstText2)),
-				inventory, noCallback, spanIdx++),
+				inventory, callbacks[spanIdx], spanIdx++),
 			makeCycleSpan(
 				makeTextCycle(textBetween), 
-				inventory, noCallback, spanIdx++),
+				inventory, callbacks[spanIdx], spanIdx++),
 			makeCycleSpan(
 				makeCycle(secondCycleId, secondCycleIdx, 
 					makeCycleData(secondText1)),
-				inventory, noCallback, spanIdx++),
+				inventory, callbacks[spanIdx], spanIdx++),
 			makeCycleSpan(
 				makeCycle(thirdCycleId, thirdCycleIdx, 
 					makeCycleData(thirdText1),
 					makeCycleData(thirdText2)),
-				inventory, noCallback, spanIdx++)
+				inventory, callbacks[spanIdx], spanIdx++)
 		]);
 	});
 
@@ -295,21 +301,21 @@ describe('CycleSpanList - Render', () => {
 		const nonconditionalCycleIdx = 1;
 		const spanIdx = 0;
 
-		const spanWithExpectedIdx = (cycleIdx, inventory) => {
-			const noCallback = null;
+		const spanWithExpectedIdx = (cycleIdx, inventory, callback) => {
 			return makeCycleSpan(
 				makeCycle(cycleId, cycleIdx,
 					makeCycleData(conditionText, actions, conditions),
 					makeCycleData(testText, actions, null)),
-				inventory, noCallback, spanIdx);
+				inventory, callback, spanIdx);
 		}
 
 		it('does not render a span with conditions without an inventory', () => {
 			renderer.render(<CycleSpanList data={ dummyPassageData } />);
 			const output = renderer.getRenderOutput();
 			const noInventory = undefined;
+			const callbacks = getCallbacks(output.props.children);
 			expect(output.props.children).toEqual(
-				[ spanWithExpectedIdx(nonconditionalCycleIdx, noInventory) ]);
+				[ spanWithExpectedIdx(nonconditionalCycleIdx, noInventory, callbacks[0]) ]);
 		});
 
 		it('does not render a span with conditions when unsatisfied', () => {
@@ -318,8 +324,9 @@ describe('CycleSpanList - Render', () => {
 				data={ dummyPassageData } 
 				inventory={ inventory } />);
 			const outputNotSatisfied = renderer.getRenderOutput();
+			const callbacks = getCallbacks(outputNotSatisfied.props.children);
 			expect(outputNotSatisfied.props.children).toEqual(
-				[ spanWithExpectedIdx(nonconditionalCycleIdx, inventory) ]);
+				[ spanWithExpectedIdx(nonconditionalCycleIdx, inventory, callbacks[0]) ]);
 		});
 
 		it('renders a span with conditions when satisfied', () => {
@@ -328,8 +335,9 @@ describe('CycleSpanList - Render', () => {
 				data={ dummyPassageData } 
 				inventory={ inventory } />);
 			const outputSatisfied = renderer.getRenderOutput();
+			const callbacks = getCallbacks(outputSatisfied.props.children);
 			expect(outputSatisfied.props.children).toEqual(
-				[ spanWithExpectedIdx(conditionalCycleIdx, inventory) ]);
+				[ spanWithExpectedIdx(conditionalCycleIdx, inventory, callbacks[0]) ]);
 		});
 	});
 
@@ -424,12 +432,12 @@ describe('CycleSpanList - Render', () => {
 				inventory={ inventory }
 				callback={ null } />);
 			const spanIdx = 0;
-			const noCallback = null;
 			const output = renderer.getRenderOutput();
+			const callbacks = getCallbacks(output.props.children);
 			expect(output.props.children).toEqual([ 
 				makeCycleSpan(
 					makeTextCycle(conditionalId),
-					inventory, noCallback, spanIdx) ])
+					inventory, callbacks[spanIdx], spanIdx) ])
 		});
 
 		it('does not render a conditional text block when unsatisfied', () => {
@@ -454,10 +462,11 @@ describe('CycleSpanList - Render', () => {
 				callback={ noCallback } />);
 			const output = renderer.getRenderOutput();
 			const spanIdx = 0;
+			const callbacks = getCallbacks(output.props.children);
 			expect(output.props.children).toEqual([
 				makeCycleSpan(
 					makeTextCycle(firstConditionalText),
-					inventory, noCallback, spanIdx)
+					inventory, callbacks[spanIdx], spanIdx)
 			])
 		});
 
@@ -471,16 +480,16 @@ describe('CycleSpanList - Render', () => {
 			const output = renderer.getRenderOutput();
 			let spanIdx = 0;
 			const expectedCycleIdx = 0;
-			const noCallback = null;
+			const callbacks = getCallbacks(output.props.children);
 			expect(output.props.children).toEqual([
 				makeCycleSpan(
 					makeTextCycle(secondConditionalText),
-					inventory, noCallback, spanIdx++),
+					inventory, callbacks[spanIdx], spanIdx++),
 				makeCycleSpan(
 					makeCycle(cycleIdInConditional, expectedCycleIdx,
 						firstConditionalCycleData,
 						secondConditionalCycleData),
-					inventory, noCallback, spanIdx++)
+					inventory, callbacks[spanIdx], spanIdx++)
 			]);
 		});
 	});
