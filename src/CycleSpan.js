@@ -11,12 +11,14 @@ const CycleSpan = (props) => {
 const isValidCycle = (cycle) => {
 	return cycle != null 
 		&& cycle.data != null 
-		&& cycle.cycle_idx != null
-		&& cycle.data[cycle.cycle_idx] != null;
+		&& cycle.data.length > 0;
 }
 
 const getCycleText = (cycle) => {
-	return cycle.data[cycle.cycle_idx].text;
+	const cycleIdx = cycle.cycle_idx != null
+		? cycle.cycle_idx
+		: 0;
+	return cycle.data[cycleIdx].text;
 }
 
 export default CycleSpan;

@@ -19,9 +19,6 @@ class App extends Component {
 	}
 
 	advancePassage = (pid) => {
-		// console.log(pid);
-		// this.setState({ pid: pid });
-
 		const { actions, ...inventory } = this.state.inventory;
 
 		this.setState({
@@ -35,8 +32,6 @@ class App extends Component {
 	}
 
 	getPassageData(pid) {
-		// console.log(this);
-		// console.log(this.state.data[pid]);
 		return this.props.data.hasOwnProperty(pid)
 			? this.props.data[pid]
 			: null;

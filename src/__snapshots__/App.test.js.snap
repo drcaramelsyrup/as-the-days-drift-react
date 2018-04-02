@@ -5,7 +5,18 @@ exports[`App - Snapshot renders a complete sequence of passages 1`] = `
   className="App"
 >
   <div>
-    <div />
+    <div>
+      <span
+        className="cycle"
+        onClick={[Function]}
+      >
+        
+        As the days drift
+        
+        
+        
+      </span>
+    </div>
     <div>
       <div
         className="response"

@@ -4,7 +4,7 @@ import ResponseList from './ResponseList';
 import { mergeActions } from './InventoryUtils';
 
 const Passage = (props) => {
-	// props.data != null && console.log(props.data.id);
+	const inventory = props.inventory || {};
 	return props.data != null && (<div>
 		{
 			createCycleSpanList(
@@ -14,7 +14,7 @@ const Passage = (props) => {
 					props.data.conditionals, 
 					props.data.cycles, 
 					props.data.text),
-				props.inventory || {},
+				inventory,
 				props.update) 
 		}
 		{
@@ -22,7 +22,7 @@ const Passage = (props) => {
 			props.data.responses != null 
 				? createResponseList(
 					props.data.responses,
-					props.inventory || {},
+					inventory,
 					props.advance)
 				: null
 		}

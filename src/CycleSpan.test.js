@@ -85,6 +85,16 @@ describe('CycleSpan - Render', () => {
 		expect(output).toEqual(makeSpan(cycle));
 	});
 
+	it('has a cycle idx that defaults to the first datum in the data array', () => {
+		const firstCycleDatum = makeCycleData('test text', { romantic: 1 });
+		const secondCycleDatum = makeCycleData('test 2');
+		const cycle = makeCycle(null, null, firstCycleDatum, secondCycleDatum);
+		const renderedCycle = makeCycle(null, 0, firstCycleDatum, secondCycleDatum);
+		renderer.render(<CycleSpan cycle={ cycle } />);
+		const output = renderer.getRenderOutput();
+		expect(output).toEqual(makeSpan(renderedCycle));
+	})
+
 	it('handles a click event by calling the given callback', () => {
 		const cycleId = '_cycle_test';
 		const cycleIdx = 0;

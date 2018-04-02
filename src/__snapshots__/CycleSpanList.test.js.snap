@@ -6,13 +6,35 @@ exports[`CycleSpanList - Snapshot renders with a complete data passage 1`] = `
     className="cycle"
     onClick={null}
   >
+    He was having trouble in 
+  </span>
+  <span
+    className="cycle"
+    onClick={null}
+  >
     precalculus, which was a problem since he wanted to be a civil engineer. You told him at this rate he'd only be building the sort of bridges that'd be in the front page of the papers, for all the wrong reasons
   </span>
   <span
     className="cycle"
     onClick={null}
   >
+    .
+    
+    You remember you bought him an organizer as a sort of light intervention. 
+  </span>
+  <span
+    className="cycle"
+    onClick={null}
+  >
     He'd still forget his homework at your house, a collection of unintelligible scribbles, and then forget to pick it up the next day
+  </span>
+  <span
+    className="cycle"
+    onClick={null}
+  >
+    .
+    
+    Sorry, he'd said, $var_nervous_habit.
   </span>
 </div>
 `;
