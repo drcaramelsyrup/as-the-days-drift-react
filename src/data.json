@@ -1,7 +1,7 @@
 {
     "0": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 0,
@@ -25,11 +25,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tYou recognize him right away when he steps through the door, though, once he's taken off his raincoat and given it a good shake. His hair looks neater, and he's got a slightly thicker chin, but he's still got the boxy jaw and almond-shaped eyes, his mother's straight dark hair. He looks around. He's scanning. He sweeps his eyes across your section, by the windows, but he doesn't seem to notice you. It's not as if you're unsearchable on the Internet.\n\n\n\n\n\n\n"
+        "text": "\tYou recognize him right away when he steps through the door, though, once he's taken off his raincoat and given it a good shake. His hair looks neater, and he's got a slightly thicker chin, but he's still got the boxy jaw and almond-shaped eyes, his mother's straight dark hair. He looks around. He's scanning. He sweeps his eyes across your section, by the windows, but he doesn't seem to notice you. It's not as if you're unsearchable on the Internet.\n\n"
     },
     "1": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 1,
@@ -49,11 +49,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\nA waiter, about to make his way back to the kitchen, turns and comes over, mouth slightly open in an \"O\" of anticipation.\n\n\n\n\n\n"
+        "text": "A waiter, about to make his way back to the kitchen, turns and comes over, mouth slightly open in an \"O\" of anticipation.\n\n"
     },
     "2": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 2,
@@ -73,11 +73,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tCole looks around for the source of the voice. When he finds you, his eyes widen into bright globes.\n\t\n\n\n\n\n"
+        "text": "\tCole looks around for the source of the voice. When he finds you, his eyes widen into bright globes.\n\t\n"
     },
     "3": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 3,
@@ -97,11 +97,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n> wait what\n> You're here?\n\tHe's typing on his phone. But finally he notices your well-lit table and expectant figure, his eyes widening into bright globes.\n\t\"Hey,\" he says at the table, grinning.\n\t\n\n\n\n\n"
+        "text": "> wait what\n> You're here?\n\tHe's typing on his phone. But finally he notices your well-lit table and expectant figure, his eyes widening into bright globes.\n\t\"Hey,\" he says at the table, grinning.\n\t\n"
     },
     "4": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 4,
@@ -121,11 +121,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tIt takes a disturbingly long time for him to register your face. At last his eyes widen into bright globes, and he hurries to your table.\n\t\"Hey,\" he says, with a grin.\n\t\n\n\n\n\n"
+        "text": "\tIt takes a disturbingly long time for him to register your face. At last his eyes widen into bright globes, and he hurries to your table.\n\t\"Hey,\" he says, with a grin.\n\t\n"
     },
     "5": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 5,
@@ -145,11 +145,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Ah,\" the waiter says, understanding.\n\tHe goes to grab the searching man at the entrance. Once he taps him on the shoulder and points to your table, Cole's eyes widen into bright globes.\n\tHe makes his way over. \"Hey,\" he says, and grins.\n\t\n\n\n\n\n"
+        "text": "\t\"Ah,\" the waiter says, understanding.\n\tHe goes to grab the searching man at the entrance. Once he taps him on the shoulder and points to your table, Cole's eyes widen into bright globes.\n\tHe makes his way over. \"Hey,\" he says, and grins.\n\t\n"
     },
     "6": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 6,
@@ -169,11 +169,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tThe waiter comes over with alarming speed. Cole finally seems to notice your flailing beacon as well. When he walks over, the waiter awkwardly mutters some excuse and floats back to the counter.\n\t\"Hey,\" Cole says. He grins.\n\t\n\n\n\n\n"
+        "text": "\tThe waiter comes over with alarming speed. Cole finally seems to notice your flailing beacon as well. When he walks over, the waiter awkwardly mutters some excuse and floats back to the counter.\n\t\"Hey,\" Cole says. He grins.\n\t\n"
     },
     "7": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 7,
@@ -185,11 +185,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tYou take care in the way you dress. Maybe it's this he's noticing. Were you always like this?\n\t\"You look the part. Of a successful person, you know. God, you were like, the most brilliant person I knew in this whole town.\" He shakes his head. \"Funny how long we've known each other at this point. I still remember that time I dragged Chase's Super Nintendo over to your place. I still remember the time you dropped into the neighborhood!\"\n\tYes, plopped into the scene, a few blocks away from Cole.\n\n"
+        "text": "\tYou take care in the way you dress. Maybe it's this he's noticing. Were you always like this?\n\t\"You look the part. Of a successful person, you know. God, you were like, the most brilliant person I knew in this whole town.\" He shakes his head. \"Funny how long we've known each other at this point. I still remember that time I dragged Chase's Super Nintendo over to your place. I still remember the time you dropped into the neighborhood!\"\n\tYes, plopped into the scene, a few blocks away from Cole.\n"
     },
     "8": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 8,
@@ -209,11 +209,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Look at you.\" He smirks. \"You cleaned up.\"\n\t\n\n\n\n\n"
+        "text": "\t\"Look at you.\" He smirks. \"You cleaned up.\"\n\t\n"
     },
     "9": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 9,
@@ -233,43 +233,40 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tYou aren't forced to wear anything exceptional. You might take care in your dress, but it's pretty casual.\n\t\"No. I mean, you're right,\" he says. \"Uh. I mean, you just look good. Healthy.\"\n\tYou're not sure if this is the right sort of compliment to give, but you thank him anyway.\n\t\"Well, something's different,\" he says.\n\n\n\n\t\n\t\n\n"
+        "text": "\tYou aren't forced to wear anything exceptional. You might take care in your dress, but it's pretty casual.\n\t\"No. I mean, you're right,\" he says. \"Uh. I mean, you just look good. Healthy.\"\n\tYou're not sure if this is the right sort of compliment to give, but you thank him anyway.\n\t\"Well, something's different,\" he says.\n\t\n\t\n"
     },
     "10": {
         "actions": {},
-        "comments": [
-            "\t<!-- He'd shrink beside them, smaller and smaller. | He'd walk ahead like he'd never seen them. -->",
-            "\t<!-- made loud scratching sounds with his fork. | complained, loudly. | watched his food and waited until they were finished. | (you noticed, sitting beside him) would sink his nails deep into the palms of his hands, leaving moonlike impressions in the center. -->"
-        ],
+        "comments": "",
         "conditionals": [],
         "cycles": {
             "_cycle_dinnerresponse": [
                 {
                     "actions": {
-                        "passive": "1",
-                        "temperamental": "1",
+                        "passive": 1.0,
+                        "temperamental": 1.0,
                         "var_nervous_habit": "scratch"
                     },
                     "text": "made loud scratching sounds with his fork."
                 },
                 {
                     "actions": {
-                        "resolute": "1",
-                        "temperamental": "1",
+                        "resolute": 1.0,
+                        "temperamental": 1.0,
                         "var_nervous_habit": "complain"
                     },
                     "text": "complained, loudly."
                 },
                 {
                     "actions": {
-                        "passive": "2",
+                        "passive": 2.0,
                         "var_nervous_habit": "stillness"
                     },
                     "text": "watched his food and waited until they were finished."
                 },
                 {
                     "actions": {
-                        "neurotic": "1",
+                        "neurotic": 1.0,
                         "var_nervous_habit": "nails"
                     },
                     "text": "(you noticed, sitting beside him) would sink his nails deep into the palms of his hands, leaving moonlike impressions in the center."
@@ -278,13 +275,13 @@
             "_cycle_parentresponse": [
                 {
                     "actions": {
-                        "passive": "1"
+                        "passive": 1.0
                     },
                     "text": "He'd shrink beside them, smaller and smaller."
                 },
                 {
                     "actions": {
-                        "resolute": "1"
+                        "resolute": 1.0
                     },
                     "text": "He'd walk ahead like he'd never seen them."
                 }
@@ -299,37 +296,33 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tYou first met before his parents split. Theirs was an all-consuming love that he and she twisted around their fists, pulling themselves together in a tight knot. They'd entwine their arms walking together, or he would sling his around her torso and tug her close, pinch her love handles, and she'd slip her hand under his shirt and tickle his belly. This, all in full view of Cole and everyone downtown. _cycle_parentresponse\n\n\tWhen you used to go over for dinner, he would peck her on the cheek, and she would graciously, expectantly, receive it while Cole _cycle_dinnerresponse.\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        "text": ""
     },
     "11": {
         "actions": {},
-        "comments": [
-            "<!-- I just don't want them to blow up in front of you, he said. | I get nervous when they're like that, he said. | Why can't they be normal for a second around people? he fumed. -->",
-            "<!-- You told him it really didn't matter that much to you. He bit his lip and eyed his newfound comrade gratefully. | You agreed that they were a lot to deal with, and he said he wouldn't tell anyone you said that. -->",
-            "<!--He'd leave the house in search of a quieter place (usually yours, or the library). He wouldn't say much. You realized later that he had curated much of your childhood reading list: writers like Philip Pullman and Orson Scott Card, though To Kill a Mockingbird had topped his list, he said, when he was in the fifth grade. | He'd obey and keep his body coiled and tense. After his mother fell asleep, he'd check on his father and ask if he'd like to go for some ice cream. Even as a child he had understood his father's self-destructive guilt. | He cleaned up their mess afterwards, putting the table d\u00e9cor back in place, sweeping up any dirt and ceramic shards from thrown pots. You knew because you came over a few minutes early once and had seen him still with a dustpan, his mother sleeping on the couch, and his cheeks had flared to such an intense red, and he had been at such a loss for words, you'd think you had caught him masturbating.-->"
-        ],
+        "comments": "",
         "conditionals": [],
         "cycles": {
             "_cycle_coping": [
                 {
                     "actions": {
-                        "calm": "1",
-                        "passive": "1"
+                        "calm": 1.0,
+                        "passive": 1.0
                     },
                     "text": "He'd leave the house in search of a quieter place (usually yours, or the library). He wouldn't say much. You realized later that he had curated much of your childhood reading list: writers like Philip Pullman and Orson Scott Card, though To Kill a Mockingbird had topped his list, he said, when he was in the fifth grade."
                 },
                 {
                     "actions": {
-                        "neurotic": "1",
-                        "resolute": "1"
+                        "neurotic": 1.0,
+                        "resolute": 1.0
                     },
                     "text": "He'd obey and keep his body coiled and tense. After his mother fell asleep, he'd check on his father and ask if he'd like to go for some ice cream. Even as a child he had understood his father's self-destructive guilt."
                 },
                 {
                     "actions": {
-                        "indebted": "1",
-                        "passive": "1",
-                        "practical": "1"
+                        "indebted": 1.0,
+                        "passive": 1.0,
+                        "practical": 1.0
                     },
                     "text": "He cleaned up their mess afterwards, putting the table d\u00e9cor back in place, sweeping up any dirt and ceramic shards from thrown pots. You knew because you came over a few minutes early once and had seen him still with a dustpan, his mother sleeping on the couch, and his cheeks had flared to such an intense red, and he had been at such a loss for words, you'd think you had caught him masturbating."
                 }
@@ -337,19 +330,19 @@
             "_cycle_excuse": [
                 {
                     "actions": {
-                        "calm": "1"
+                        "calm": 1.0
                     },
                     "text": "I just don't want them to blow up in front of you, he said."
                 },
                 {
                     "actions": {
-                        "neurotic": "1"
+                        "neurotic": 1.0
                     },
                     "text": "I get nervous when they're like that, he said."
                 },
                 {
                     "actions": {
-                        "temperamental": "1"
+                        "temperamental": 1.0
                     },
                     "text": "Why can't they be normal for a second around people? he fumed."
                 }
@@ -357,13 +350,13 @@
             "_cycle_response": [
                 {
                     "actions": {
-                        "indebted": "1"
+                        "indebted": 1.0
                     },
                     "text": "You told him it really didn't matter that much to you. He bit his lip and eyed his newfound comrade gratefully."
                 },
                 {
                     "actions": {
-                        "entitled": "1"
+                        "entitled": 1.0
                     },
                     "text": "You agreed that they were a lot to deal with, and he said he wouldn't tell anyone you said that."
                 }
@@ -378,11 +371,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\n\n\t_cycle_excuse _cycle_response\n\tAt their worst they were explosive, though you never personally witnessed this. His father would retreat into the bathroom and run the water in the sink for an hour. His mother would drink herself silly and want Cole to curl up beside her on the living room couch, in his father's stead.\n\n\t_cycle_coping\n\tAfter so many attempts at piecing together their delicate relationship only to have it shattered in their son's face, they finally split, when Cole was around fourteen. Cole told you, later, at his mom's (most of the time he lived at his father's, thirty minutes from school), that it was \"not big news or anything.\"\n\n\t\n\n\n\n\n\n\n\n\n\n\n\n"
+        "text": ""
     },
     "12": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 12,
@@ -402,11 +395,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tHe pulls you in. He smells like burnt coffee and generic aftershave.\n\tHe smiles at you when you sit down. The waiter hands Cole a menu. \"I can't believe it's been so long,\" Cole says. He lets out a satisfied sigh.\n\t\"Wow,\" Cole says. \"I really didn't recognize you when I came in.\" He takes you in.\n\n\n\n\n\n"
+        "text": "\tHe pulls you in. He smells like burnt coffee and generic aftershave.\n\tHe smiles at you when you sit down. The waiter hands Cole a menu. \"I can't believe it's been so long,\" Cole says. He lets out a satisfied sigh.\n\t\"Wow,\" Cole says. \"I really didn't recognize you when I came in.\" He takes you in.\n\n"
     },
     "13": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 13,
@@ -426,11 +419,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tHe shakes firmly. The waiter hands him a menu once he's seated.\n\t\"Wow,\" Cole says. \"I really didn't recognize you when I came in.\" He takes you in.\n\n\n\n\n\n"
+        "text": "\tHe shakes firmly. The waiter hands him a menu once he's seated.\n\t\"Wow,\" Cole says. \"I really didn't recognize you when I came in.\" He takes you in.\n\n"
     },
     "14": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 14,
@@ -454,11 +447,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tHe takes his seat as well.\n\t\"So,\" Cole says.\n\t\n\n\n\n\n\n"
+        "text": "\tHe takes his seat as well.\n\t\"So,\" Cole says.\n\t\n"
     },
     "15": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 15,
@@ -470,11 +463,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tIt had been years since you last talked with him, but now Cole, the friend of your childhood, still hopelessly ensnared in his hometown and family plight, unable to join you among the ranks of the college-educated elite, was eager to get in touch with you. \n\tOf course you kept in contact through Facebook and whatnot. Aside from remote communication, it was no longer prudent to meet up. Cole got a job where he could take care of his parents, and you were being educated.\n\n\n"
+        "text": "\tIt had been years since you last talked with him, but now Cole, the friend of your childhood, still hopelessly ensnared in his hometown and family plight, unable to join you among the ranks of the college-educated elite, was eager to get in touch with you. \n\tOf course you kept in contact through Facebook and whatnot. Aside from remote communication, it was no longer prudent to meet up. Cole got a job where he could take care of his parents, and you were being educated.\n"
     },
     "16": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 16,
@@ -494,11 +487,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Wow, uh,\" Cole says. \"I really didn't recognize you when I came in.\" He leans back in his chair, takes you in.\n\n\n\n\n\n"
+        "text": "\t\"Wow, uh,\" Cole says. \"I really didn't recognize you when I came in.\" He leans back in his chair, takes you in.\n\n"
     },
     "17": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 17,
@@ -518,11 +511,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Good, good. Really, uh,\" he says. \"Fine.\"\n\tHe nods.\n\t\"How about yourself? I mean,\" he scoffs, \"I really didn't recognize you.\" He leans back in his chair and takes you in.\n\t\n\n\n\n\n"
+        "text": "\t\"Good, good. Really, uh,\" he says. \"Fine.\"\n\tHe nods.\n\t\"How about yourself? I mean,\" he scoffs, \"I really didn't recognize you.\" He leans back in his chair and takes you in.\n\t\n"
     },
     "18": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 18,
@@ -542,11 +535,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"I mean, look at you,\" he says, laughing.\n\t\"You, like, uh,\" he intones, and laughs again, scratches the back of his head. \"I mean, I really didn't recognize you.\" He takes you in now, leaning back in his chair.\n\t\n\n\n\n\n"
+        "text": "\t\"I mean, look at you,\" he says, laughing.\n\t\"You, like, uh,\" he intones, and laughs again, scratches the back of his head. \"I mean, I really didn't recognize you.\" He takes you in now, leaning back in his chair.\n\t\n"
     },
     "19": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 19,
@@ -566,11 +559,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Yeah,\" he says, nodding deeply.\n\tHe's silent for a moment, then gives a short laugh.\n\t\"Wow,\" he says. \"I really didn't recognize you.\"\n\t\n\n\n\n\n"
+        "text": "\t\"Yeah,\" he says, nodding deeply.\n\tHe's silent for a moment, then gives a short laugh.\n\t\"Wow,\" he says. \"I really didn't recognize you.\"\n\t\n"
     },
     "20": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 20,
@@ -582,11 +575,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Now, don't get ahead of yourself,\" he chides. \"I'd hate for you to look like one of those generic corporate people in a few years.\"\n\tHe chuckles, then clasps his hands together. \"Not that that would happen, of course. I'm kidding.\"\n\tThe waiter brings over a carafe and fills both your glasses with water.\n\t\"Anyway, Christ, how are you? It has been ages. What, like fifteen years? Since you dropped into the neighborhood, I mean. We've known each other for so long.\"\n\tHow much has changed, especially in that boy across from you.\n\t\n\n\n"
+        "text": "\t\"Now, don't get ahead of yourself,\" he chides. \"I'd hate for you to look like one of those generic corporate people in a few years.\"\n\tHe chuckles, then clasps his hands together. \"Not that that would happen, of course. I'm kidding.\"\n\tThe waiter brings over a carafe and fills both your glasses with water.\n\t\"Anyway, Christ, how are you? It has been ages. What, like fifteen years? Since you dropped into the neighborhood, I mean. We've known each other for so long.\"\n\tHow much has changed, especially in that boy across from you.\n\t\n"
     },
     "21": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 21,
@@ -598,11 +591,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Come on. It was high school. It was a pretty messed up time,\" he says. \"I don't think anyone really knew what they were doing. Or at least, I didn't.\"\n\tHe waves a hand as if he were swatting a fly. \"God, yeah, we've known each other for just about forever, you realize that? It's been almost fifteen years since you moved here.\"\n\tIt has. How much has changed, over the years, especially in the boy sitting in front of you.\n\t\n\n\n"
+        "text": "\t\"Come on. It was high school. It was a pretty messed up time,\" he says. \"I don't think anyone really knew what they were doing. Or at least, I didn't.\"\n\tHe waves a hand as if he were swatting a fly. \"God, yeah, we've known each other for just about forever, you realize that? It's been almost fifteen years since you moved here.\"\n\tIt has. How much has changed, over the years, especially in the boy sitting in front of you.\n\t\n"
     },
     "22": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 22,
@@ -614,11 +607,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"Sure, sure. But you do look good in those threads, just saying. Don't you feel good?\" He eyes the cut of your cloth.\n\t\"Anyway, Christ, yeah, it's been years since we talked. You realize we've known each other for almost fifteen years? Since that day you dropped into the neighborhood? How are you?\"\n\tHe's right. How long it's been since you moved here. How much has changed, especially in the boy across from you.\n\t\n\n\n"
+        "text": "\t\"Sure, sure. But you do look good in those threads, just saying. Don't you feel good?\" He eyes the cut of your cloth.\n\t\"Anyway, Christ, yeah, it's been years since we talked. You realize we've known each other for almost fifteen years? Since that day you dropped into the neighborhood? How are you?\"\n\tHe's right. How long it's been since you moved here. How much has changed, especially in the boy across from you.\n\t\n"
     },
     "23": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 23,
@@ -630,25 +623,25 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\"No, no. I mean, you look great. Fantastic. But as a whole, you just look so much more put together, you know? Like a real on-top-of-their-shit person. That's hard to do nowadays.\"\n\tHe laughs. \"I'm sorry, it's just been a while. Since we've talked face-to-face, in real life. I mean, Christ, it's been ages since that day you dropped in the neighborhood.\"\n\tFifteen years ago, yes, you plopped into this quiet town. How much has changed, especially in the boy sitting across from you.\n\t\n\n\n"
+        "text": "\t\"No, no. I mean, you look great. Fantastic. But as a whole, you just look so much more put together, you know? Like a real on-top-of-their-shit person. That's hard to do nowadays.\"\n\tHe laughs. \"I'm sorry, it's just been a while. Since we've talked face-to-face, in real life. I mean, Christ, it's been ages since that day you dropped in the neighborhood.\"\n\tFifteen years ago, yes, you plopped into this quiet town. How much has changed, especially in the boy sitting across from you.\n\t\n"
     },
     "24": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {
             "_cycle_give": [
                 {
                     "actions": {
-                        "calm": "1",
-                        "entitled": "1"
+                        "calm": 1.0,
+                        "entitled": 1.0
                     },
                     "text": "He went to the bathroom and handed her a roll of toilet paper."
                 },
                 {
                     "actions": {
-                        "complacent": "1",
-                        "indebted": "1"
+                        "complacent": 1.0,
+                        "indebted": 1.0
                     },
                     "text": "He went to the fridge and came back with a beer for her, which she gently cradled."
                 }
@@ -656,16 +649,24 @@
             "_cycle_tvresponse": [
                 {
                     "actions": {
-                        "complacent": "1",
-                        "indebted": "1",
+                        "complacent": 1.0,
+                        "indebted": 1.0,
                         "var_tv_response": "remember"
                     },
                     "text": "He went to the fridge and came back with a beer for her, which she gently cradled."
                 },
                 {
                     "actions": {
-                        "resolute": "1",
-                        "romantic": "2",
+                        "indebted": 1.0,
+                        "romantic": 1.0,
+                        "var_tv_response": "order"
+                    },
+                    "text": "Cole changed the channel and they were advertising vegetable peelers, and his mother said, \"Oh, we bought that.\"\n\t\"Really?\" Cole asked. His mother nodded glumly.\n\tThey stared for a while at the too-smiley woman.\n\t\"Show me,\" he said."
+                },
+                {
+                    "actions": {
+                        "resolute": 1.0,
+                        "romantic": 2.0,
                         "var_tv_response": "order"
                     },
                     "text": "Cole went over to the landline and started dialing. His mother looked at him quizzically until he said, \"Hello. Yeah, I'd like to order the 2-carat.\" He made his voice a half octave deeper and stern like granite. She looked devastated and ran up to him. This was something his father would pull."
@@ -681,17 +682,17 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\tWhen Cole's parents finally split, they sat him down to have the talk. Afterwards, they leaned forward intently and he asked, \"So who am I staying with?\"\n\tLater that evening his dad retreated to the bedroom and his mother sat on the couch where he had, staring at her palms. He sat opposite her, and she said she was trying to imagine what this was like for him. He said it was about time, and honestly it was such a relief after so long. Then his mother started crying and asked him if he would forgive them for doing such a shitty job of making a loving family.\n\tHe watched her cry for a long time. He got up and sat next to her, and they stayed like that. _cycle_give Then he turned on the TV. This smiling woman was selling 1-carat, 2-carat diamond rings. They watched the rings shimmer grossly on her perfectly-manicured fingers. His mother shook her head.\n\t_cycle_tvresponse\n\t\n\n\t\n\n\n\n\n(link: \"remembering\")[(set: $var_tv_response = \"order\")(set: $romantic += 1)(set: $indebted += 1)(replace: \"_cycle_tvresponse\")[Cole changed the channel and they were advertising vegetable peelers, and his mother said, \"Oh, we bought that.\"\n\t\"Really?\" Cole asked. His mother nodded glumly.\n\tThey stared for a while at the too-smiley woman.\n\t\"Show me,\" he said.]]\n\n\n\n"
+        "text": ""
     },
     "25": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [
             {
                 "conditions": {
                     "var_tv_response": {
                         "type": "is",
-                        "val": "\"remember\""
+                        "val": "remember"
                     }
                 },
                 "id": "_cond_text_0",
@@ -701,7 +702,7 @@
                 "conditions": {
                     "var_tv_response": {
                         "type": "is",
-                        "val": "\"order\""
+                        "val": "order"
                     }
                 },
                 "id": "_cond_text_1",
@@ -718,11 +719,11 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\n\t\n\t\n\n"
+        "text": "\t_cond_text_0\n\t_cond_text_1\n"
     },
     "26": {
         "actions": {},
-        "comments": [],
+        "comments": "",
         "conditionals": [],
         "cycles": {},
         "id": 26,
@@ -734,6 +735,6 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\nAs the days drift\n\n\n"
+        "text": "As the days drift\n\n"
     }
 }

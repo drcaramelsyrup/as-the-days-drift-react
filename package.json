@@ -17,6 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "entweedle": "python src/python/parse_entweedle.py src/python/entweedle src/data.json",
     "eject": "react-scripts eject"
   }
 }

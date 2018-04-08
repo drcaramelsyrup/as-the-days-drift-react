@@ -3,25 +3,6 @@ import re
 import json
 import os
 
-parser = argparse.ArgumentParser(description='Bleh')
-parser.add_argument('-d', '--delete', help='Delete source file after parsing', action='store_true')
-parser.add_argument('source', help='Source file for conversation (in Entweedle format)')
-parser.add_argument('dest', help='Destination file for conversation (in JSON)')
-args = parser.parse_args()
-
-source_file = open(args.source, 'r')
-source_raw = source_file.read()
-source_file.close()
-
-# Group the first newline after text with the preceding text
-source_nodes = [[s for s in re.split(r'(.*\n)', x) if len(s)] for x in re.split('\n:: ', source_raw) if len(x)]
-conv_title = source_nodes[0][1]	#title of conversation - not actually used
-conv_nodes = source_nodes[3:]
-conv_dict = {}		#map of node title -> node info
-main_speaker = ''	#default speaker - any nodes without speaker tag are assumed to have this speaker
-
-titlesToIds = {}	#for changing node titles to indices
-
 #
 # Utility Functions
 #
@@ -35,6 +16,12 @@ def isNumeric(value):
 
 def stripQuotes(value):
 	return value.strip('\'').strip('\"')
+
+def strToLines(string):
+	return [s for s in re.split(r'(.*\n)', string) if len(s)]
+
+def linesToStr(lines):
+	return ''.join(lines)
 
 def parseCondition(line):
 	ret = {}
@@ -126,12 +113,12 @@ def extractNodeName(node):
 		speaker = main_speaker
 	else:
 		speaker = node_title_split[1].replace('_', ' ')
-	return [node[1:], node_name, speaker]
+	return [linesToStr(node[1:]), node_name, speaker]
 
 def extractResponses(text):
 	responses = []
 	out_text = ''
-	for line in text:
+	for line in strToLines(text):
 		stripline = line.strip()
 		# Response
 		if stripline.startswith('[[') and stripline.endswith(']]'):
@@ -222,7 +209,7 @@ def parseCycles(text):
 def extractActions(text):
 	out_text = ''
 	actions = {}
-	for line in text:
+	for line in strToLines(text):
 		if line.strip().startswith('(set:'):
 			action = [x for x in re.split(r'[\$) ]', line.strip()) if len(x)]
 			action_variable = action[1]
@@ -237,7 +224,7 @@ def removeExtraneousLines(text):
 	cycle = 0
 	showOnce = 0
 	comments = ''
-	for line in text:
+	for line in strToLines(text):
 		if not len(line.strip('\t')):
 			continue
 		stripline = line.strip()
@@ -290,6 +277,24 @@ def createConvNode(node, id):
 #
 
 ### Main
+parser = argparse.ArgumentParser(description='Bleh')
+parser.add_argument('-d', '--delete', help='Delete source file after parsing', action='store_true')
+parser.add_argument('source', help='Source file for conversation (in Entweedle format)')
+parser.add_argument('dest', help='Destination file for conversation (in JSON)')
+args = parser.parse_args()
+
+source_file = open(args.source, 'r')
+source_raw = source_file.read()
+source_file.close()
+
+# Group the first newline after text with the preceding text
+source_nodes = [strToLines(x) for x in re.split('\n:: ', source_raw) if len(x)]
+conv_title = source_nodes[0][1]	#title of conversation - not actually used
+conv_nodes = source_nodes[3:]
+conv_dict = {}		#map of node title -> node info
+main_speaker = ''	#default speaker - any nodes without speaker tag are assumed to have this speaker
+
+titlesToIds = {}	#for changing node titles to indices
 
 conv_dict['start'] = createConvNode(conv_nodes[0], 0)	# this is the NPC greeting and conversation root
 main_speaker = conv_dict['start']['speaker']			# this is the main speaker in the conversation
