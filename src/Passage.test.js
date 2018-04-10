@@ -71,6 +71,7 @@ describe('Passage - Render', () => {
 		renderer.render(<Passage data={ dummyPassage }/>);
 		const output = renderer.getRenderOutput();
 		expect(output.type).toBe('div');
+		expect(output.props.className).toBe('Passage');
 
 		renderer.unmount();
 	});

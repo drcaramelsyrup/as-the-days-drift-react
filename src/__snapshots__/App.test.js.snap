@@ -4,7 +4,9 @@ exports[`App - Snapshot renders a complete sequence of passages 1`] = `
 <div
   className="App"
 >
-  <div>
+  <div
+    className="Passage"
+  >
     <div>
       <span
         className="cycle"

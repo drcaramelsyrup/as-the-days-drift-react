@@ -1,10 +1,11 @@
 import React from 'react';
 import CycleSpanList from './CycleSpanList';
 import ResponseList from './ResponseList';
+import './Passage.css';
 
 const Passage = (props) => {
 	const inventory = props.inventory || {};
-	return props.data != null && (<div>
+	return props.data != null && (<div className='Passage'>
 		{
 			createCycleSpanList(
 				createCycleSpanListData(
