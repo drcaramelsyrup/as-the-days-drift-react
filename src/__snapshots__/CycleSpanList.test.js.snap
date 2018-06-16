@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CycleSpanList - Snapshot renders with a complete data passage 1`] = `
-<div>
+<div
+  className="CycleSpanList"
+>
   <span
     className="cycle"
     onClick={[Function]}

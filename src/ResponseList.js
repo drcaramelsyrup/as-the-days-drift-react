@@ -1,10 +1,13 @@
 import React from 'react';
 import Response from './Response';
 import { matchesQuery } from './InventoryUtils';
+import './ResponseList.css';
 
 const ResponseList = (props) => {
 	return props.data != null && 
-		(<div>{ makeResponses(props.data, props.inventory, props.callback) }</div>);
+		(<div className='ResponseList'>{ 
+			makeResponses(props.data, props.inventory, props.callback) 
+		}</div>);
 }
 
 const makeResponses = (data, inventory, callback) => {

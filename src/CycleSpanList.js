@@ -1,9 +1,10 @@
 import React from 'react';
 import CycleSpan from './CycleSpan';
 import { mergeActions, removeActions, matchesQuery, allExcept } from './InventoryUtils';
+import './CycleSpanList.css';
 
 const CycleSpanList = (props) => {
-	return <div>{
+	return <div className='CycleSpanList'>{
 		props.data != null && getCycleSpans(
 			props.data, 
 			props.inventory,

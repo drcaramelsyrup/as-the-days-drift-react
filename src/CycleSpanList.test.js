@@ -73,6 +73,7 @@ describe('CycleSpanList - Render', () => {
 		renderer.render(<CycleSpanList />);
 		const output = renderer.getRenderOutput();
 		expect(output.type).toBe('div');
+		expect(output.props.className).toBe('CycleSpanList');
 	});
 
 	it('renders with empty text', () => {

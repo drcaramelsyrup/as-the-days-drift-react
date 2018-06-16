@@ -49,6 +49,7 @@ describe('ResponseList - Render', () => {
 		renderer.render(<ResponseList data={[]} />);
 		const output = renderer.getRenderOutput();
 		expect(output.type).toBe('div');
+		expect(output.props.className).toBe('ResponseList');
 	});
 
 	it('renders a list of response data', () => {

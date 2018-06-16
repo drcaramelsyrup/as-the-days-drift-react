@@ -7,7 +7,9 @@ exports[`App - Snapshot renders a complete sequence of passages 1`] = `
   <div
     className="Passage"
   >
-    <div>
+    <div
+      className="CycleSpanList"
+    >
       <span
         className="cycle"
         onClick={[Function]}
@@ -19,7 +21,9 @@ exports[`App - Snapshot renders a complete sequence of passages 1`] = `
         
       </span>
     </div>
-    <div>
+    <div
+      className="ResponseList"
+    >
       <div
         className="response"
         onClick={[Function]}
