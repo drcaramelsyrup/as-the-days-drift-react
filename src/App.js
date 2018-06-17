@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import Passage from './Passage';
 import { mergeActions } from './InventoryUtils';
 
