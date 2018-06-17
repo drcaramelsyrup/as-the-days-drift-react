@@ -79,7 +79,7 @@ describe('App - UpdateState - advancePassage', () => {
 
 	it('advances to the target Passage pid', () => {
 		const app = shallow(<App data={ data } pid={ firstPid } />);
-		expect(app.props().children).toEqual(
+		expect(app.props().children).toContainEqual(
 			makePassage(
 				firstPassageData, 
 				app.instance().updatePassage,
