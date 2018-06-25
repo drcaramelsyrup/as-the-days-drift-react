@@ -255,7 +255,7 @@
                         "temperamental": 1.0,
                         "var_nervous_habit": "complain"
                     },
-                    "text": "complained, loudly"
+                    "text": "complained, loudly."
                 },
                 {
                     "actions": {
@@ -296,7 +296,7 @@
         ],
         "showOnce": 0,
         "speaker": "",
-        "text": "\tYou first met before his parents split. Theirs was an all-consuming love that he and she twisted around their fists, pulling themselves together in a tight knot. They'd entwine their arms walking together, or he would sling his around her torso and tug her close, pinch her love handles, and she'd slip her hand under his shirt and tickle his belly. This, all in full view of Cole and everyone downtown. _cycle_parentresponse\n\tWhen you used to go over for dinner, he would peck her on the cheek, and she would graciously, expectantly, receive it while Cole _cycle_dinnerresponse\n\n\n"
+        "text": "\tYou first met before his parents split. Theirs was an all-consuming love that he and she twisted around their fists, pulling themselves together in a tight knot. They'd entwine their arms walking together, or he would sling his around her torso and tug her close, pinch her love handles, and she'd slip her hand under his shirt and tickle his belly. This, all in full view of Cole and everyone downtown. _cycle_parentresponse\n\tWhen you used to go over for dinner, he would peck her on the cheek, and she would graciously, expectantly, receive it while Cole _cycle_dinnerresponse.\n\n\n"
     },
     "11": {
         "actions": {},

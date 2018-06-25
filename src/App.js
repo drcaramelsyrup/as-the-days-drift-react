@@ -16,8 +16,26 @@ class App extends Component {
 		super(props);
 		this.state = {
 			inventory: props.inventory || {},
-			pid: props.pid
+			pid: props.pid,
+			width: 0,
+			height: 0
 		};
+	}
+
+	componentDidMount() {
+		this.updateBackgroundDimensions();
+		window.addEventListener('resize', this.updateBackgroundDimensions);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateBackgroundDimensions);
+	}
+
+	updateBackgroundDimensions = () => {
+		this.setState({ 
+			width: window.innerWidth, 
+			height: window.innerHeight 
+		});
 	}
 
 	advancePassage = (pid) => {
@@ -49,8 +67,10 @@ class App extends Component {
 
 	renderBackground(width, height) {
 		return (
-			<Surface width={1} height={1}>
-				<Background />
+			<Surface width={ width } height={ height }>
+				<Background 
+					width={ width } height={ height }
+					inventory={ this.state.inventory } />
 			</Surface>
 		);
 	}
@@ -59,11 +79,13 @@ class App extends Component {
 		return (
 			<div className='App'>
 				{
-					!(this.props.noBackground != null && this.props.noBackground > 0)
-						&& this.renderBackground(this.props.width, this.props.height)
+					this.props.data != null && this.renderPassage(this.state.pid)
 				}
 				{
-					this.props.data != null && this.renderPassage(this.state.pid)
+					!(this.props.noBackground != null && this.props.noBackground > 0)
+						&& this.renderBackground(
+							this.state.width, this.state.height,
+							this.state.inventory)
 				}
 			</div>
 		);

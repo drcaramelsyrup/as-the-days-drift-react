@@ -67,6 +67,7 @@ def extractConditionalBlocks(text):
 
 		# just skip anything beyond links for now
 		if until_marker == link_marker:
+			out_text += block
 			return [out_text, blocks]
 
 		# Recursion:
@@ -153,7 +154,6 @@ def extractResponses(text):
 	return [out_text, responses]
 
 def parseCycles(text):
-	out_text = ''
 	cycles = {}
 
 	index = 0
@@ -240,6 +240,7 @@ def removeExtraneousLines(text):
 				continue
 			else:
 				comments += comment_type
+				continue
 		if cycle > 0:
 			continue
 		out_text += line

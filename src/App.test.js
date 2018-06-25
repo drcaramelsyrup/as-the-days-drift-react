@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import App from './App';
 import Passage from './Passage';
@@ -47,7 +47,7 @@ describe('App - Render', () => {
 	const makeBackground = (width, height) => {
 		return (
 			<Surface width={ width } height={ height } >
-				<Background />
+				<Background width={ width } height={ height } />
 			</Surface>
 		);
 	}
@@ -94,12 +94,32 @@ describe('App - Render', () => {
 	});
 
 	it('contains a Background element', () => {
-		const passage = {};
-		const pid = 0;
-		const data = { [pid]: passage };
-		const app = shallow(<App data={ data } pid={ pid } />);
+		const app = shallow(<App />);
 		expect(app.props().children).toContainEqual(
-			makeBackground(1, 1));
+			makeBackground(
+				global.window.innerWidth, 
+				global.window.innerHeight));
+	});
+
+	it('correctly resizes when the window dimensions change', () => {
+		global.window.innerWidth = 500;
+		global.window.innerHeight = 500;
+
+		const app = mount(<App noBackground={ 1 } />);
+		expect(app.state().width).toBe(global.window.innerWidth);
+		expect(app.state().height).toBe(global.window.innerHeight);
+
+		const resizedWidth = 2000;
+		const resizedHeight = 100;
+		global.window.innerWidth = resizedWidth;
+		global.window.innerHeight = resizedHeight;
+		global.dispatchEvent(new Event('resize'));
+
+		expect(app.state().width).toBe(global.window.innerWidth);
+		expect(app.state().height).toBe(global.window.innerHeight);
+
+		app.unmount();
+		// TODO: check that unmount gets called?
 	});
 
 });

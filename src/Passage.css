@@ -1,4 +1,9 @@
 .Passage {
+	position: absolute;
+	z-index: 1;
+	width: 80%;
+	height: 60%;
+
 	padding: 10%;
 	line-height: 1.5;
 	font-size: medium;
