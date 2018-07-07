@@ -12,6 +12,7 @@ exports[`App - Snapshot renders a complete sequence of passages 1`] = `
     >
       <span
         className="cycle"
+        isInteractive={0}
         onClick={[Function]}
       >
         

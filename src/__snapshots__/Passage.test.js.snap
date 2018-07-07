@@ -9,18 +9,21 @@ exports[`Passage - Render renders with a complete data passage 1`] = `
   >
     <span
       className="cycle"
+      isInteractive={0}
       onClick={[Function]}
     >
       He was having trouble in 
     </span>
     <span
       className="cycle"
+      isInteractive={1}
       onClick={[Function]}
     >
       precalculus, which was a problem since he wanted to be a civil engineer. You told him at this rate he'd only be building the sort of bridges that'd be in the front page of the papers, for all the wrong reasons
     </span>
     <span
       className="cycle"
+      isInteractive={0}
       onClick={[Function]}
     >
       .
@@ -29,12 +32,14 @@ exports[`Passage - Render renders with a complete data passage 1`] = `
     </span>
     <span
       className="cycle"
+      isInteractive={1}
       onClick={[Function]}
     >
       He'd still forget his homework at your house, a collection of unintelligible scribbles, and then forget to pick it up the next day
     </span>
     <span
       className="cycle"
+      isInteractive={0}
       onClick={[Function]}
     >
       .

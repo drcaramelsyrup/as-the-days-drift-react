@@ -43,8 +43,9 @@ describe('CycleSpan - Render', () => {
 		};
 	}
 
-	const makeSpan = (cycle, callback = null) => {
-		return (<span className='cycle' onClick={ callback }>
+	const makeSpan = (cycle, callback = null, isInteractive = 0) => {
+		return (<span className='cycle' 
+			onClick={ callback } isInteractive = { isInteractive }>
 			{ cycle.data[cycle.cycle_idx].text }
 		</span>);
 	}
@@ -92,8 +93,11 @@ describe('CycleSpan - Render', () => {
 		const renderedCycle = makeCycle(null, 0, firstCycleDatum, secondCycleDatum);
 		renderer.render(<CycleSpan cycle={ cycle } />);
 		const output = renderer.getRenderOutput();
-		expect(output).toEqual(makeSpan(renderedCycle));
-	})
+
+		const callback = null;
+		const isInteractive = 1;
+		expect(output).toEqual(makeSpan(renderedCycle, callback, isInteractive));
+	});
 
 	it('handles a click event by calling the given callback', () => {
 		const cycleId = '_cycle_test';

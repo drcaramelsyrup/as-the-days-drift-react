@@ -1,0 +1,19 @@
+.cycle {
+	transition: all 0.3s ease-in-out;
+}
+
+.cycle[isInteractive="1"] {
+	cursor: pointer;
+	border-bottom: 1px rgba(211, 211, 211, 0.8) dotted;
+	border-left: 1px solid rgba(25, 25, 122, 0.3);
+	border-right: 1px solid rgba(25, 25, 122, 0.3);
+}
+
+.cycle[isInteractive="1"]:hover {
+	color: #355c7e;
+	border-left: 1px solid rgba(25, 25, 122, 0.0);
+	border-right: 1px solid rgba(25, 25, 122, 0.0);
+	border-bottom: 1px rgba(211, 211, 211, 0.0) dotted;
+	font-size: 100.25%;
+}
+

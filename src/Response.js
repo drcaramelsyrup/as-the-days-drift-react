@@ -1,4 +1,5 @@
 import React from 'react';
+import './Response.css';
 
 const Response = (props) => {
 	return props.data != null && (

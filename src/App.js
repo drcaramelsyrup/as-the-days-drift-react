@@ -70,7 +70,7 @@ class App extends Component {
 			<Surface width={ width } height={ height }>
 				<Background 
 					width={ width } height={ height }
-					inventory={ this.state.inventory } />
+					/*inventory={ this.state.inventory }*/ />
 			</Surface>
 		);
 	}

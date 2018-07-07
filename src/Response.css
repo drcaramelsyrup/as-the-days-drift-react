@@ -1,0 +1,9 @@
+.response {
+	cursor: pointer;
+	transition: 0.3s;
+	border-bottom: 2px gray dashed;
+}
+
+.response:hover {
+	color: #c06c84;
+}
