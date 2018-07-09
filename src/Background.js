@@ -1,5 +1,8 @@
 import React from 'react';
 import { Shaders, Node, GLSL } from 'gl-react';
+import { pullTraits, pullTraitValue } from './TraitUtils';
+import { mergeActions } from './InventoryUtils';
+import './Background.css';
 
 const shaders = Shaders.create({
 	watercolor: {
@@ -118,22 +121,22 @@ const shaders = Shaders.create({
 
 	void main()
 	{
-	colors[0] = K_CeruleanBlue;
-	colors[1] = S_CeruleanBlue;
-	colors[2] = K_FrenchUltramarine;
-	colors[3] = S_FrenchUltramarine;
-	colors[4] = K_HookersGreen;
-	colors[5] = S_HookersGreen;
-	colors[6] = K_HansaYellow;
-	colors[7] = S_HansaYellow;
-	colors[8] = K_QuinacridoneRose;
-	colors[9] = S_QuinacridoneRose;
-	colors[10] = K_QuinacridoneRose;
-	colors[11] = S_QuinacridoneRose;
-	colors[12] = K_QuinacridoneRose;
-	colors[13] = S_QuinacridoneRose;
-	colors[14] = K_QuinacridoneRose;
-	colors[15] = S_QuinacridoneRose;
+		colors[0] = K_CeruleanBlue;
+		colors[1] = S_CeruleanBlue;
+		colors[2] = K_FrenchUltramarine;
+		colors[3] = S_FrenchUltramarine;
+		colors[4] = K_HookersGreen;
+		colors[5] = S_HookersGreen;
+		colors[6] = K_HansaYellow;
+		colors[7] = S_HansaYellow;
+		colors[8] = K_QuinacridoneRose;
+		colors[9] = S_QuinacridoneRose;
+		colors[10] = K_QuinacridoneRose;
+		colors[11] = S_QuinacridoneRose;
+		colors[12] = K_QuinacridoneRose;
+		colors[13] = S_QuinacridoneRose;
+		colors[14] = K_QuinacridoneRose;
+		colors[15] = S_QuinacridoneRose;
 
 		vec2 scaled_uv = uv * vec2(1.0, resolution.y / resolution.x);
 
@@ -174,20 +177,37 @@ const shaders = Shaders.create({
 	}
 });
 
+const mergeInventoryWithActions = (inInventory) => {
+	const { actions, ...inventory } = inInventory;
+	return mergeActions(inventory, actions);
+}
+
+const calculateTraitValues = (inInventory) => {
+	const inventoryWithActions = mergeInventoryWithActions(inInventory);
+	const traits = pullTraits(inventoryWithActions);
+	return Object.keys(traits).reduce((acc, traitName) => {
+		return acc.concat(pullTraitValue(traits, traitName));
+	}, []);
+}
+
 const Background = (props) => {
 	return (
-		<Node
-			shader={ shaders.watercolor }
-			uniforms={{
-				resolution: [
-					props.width,
-					props.height 
-				],
-				traits: [
-					props.inventory
-				]
-			}} />
-		);	
+		<div className='Background'>
+			<Node
+				shader={ shaders.watercolor }
+				uniforms={{
+					resolution: [
+						props.width,
+						props.height 
+					],
+					traits: (
+						props.inventory != null 
+							&& calculateTraitValues(props.inventory)
+					)
+				}}
+			/>
+		</div>
+	);	
 }
 
 export default Background;

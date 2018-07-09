@@ -67,11 +67,13 @@ class App extends Component {
 
 	renderBackground(width, height) {
 		return (
-			<Surface width={ width } height={ height }>
-				<Background 
-					width={ width } height={ height }
-					/*inventory={ this.state.inventory }*/ />
-			</Surface>
+			<div className='BackgroundSurface'>
+				<Surface width={ width } height={ height }>
+					<Background 
+						width={ width } height={ height }
+						inventory={ this.state.inventory } />
+				</Surface>
+			</div>
 		);
 	}
 

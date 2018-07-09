@@ -43,7 +43,6 @@ const createCycleSpanListData = (id, actions, conditionals, cycles, text) => {
 }
 
 const createCycleSpanList = (data, inventory, callback) => {
-	// console.log(data);
 	return (<CycleSpanList 
 		data={ data } 
 		inventory={ inventory } 

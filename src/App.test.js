@@ -44,11 +44,14 @@ describe('App - Render', () => {
 			inventory={ {} } />);
 	}
 
-	const makeBackground = (width, height) => {
+	const makeBackground = (width, height, inventory = {}) => {
 		return (
-			<Surface width={ width } height={ height } >
-				<Background width={ width } height={ height } />
-			</Surface>
+			<div className='BackgroundSurface'>
+				<Surface width={ width } height={ height } >
+					<Background width={ width } height={ height } 
+						inventory={ inventory } />
+				</Surface>
+			</div>
 		);
 	}
 

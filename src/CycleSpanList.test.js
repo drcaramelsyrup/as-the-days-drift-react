@@ -4,6 +4,7 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 import TestRenderer from 'react-test-renderer';
 import CycleSpanList, { cycleSpanUpdateFunction } from './CycleSpanList';
 import CycleSpan from './CycleSpan';
+import { makeCycle, makeCycleData } from './CycleUtils';
 import data from './test_cyclespanlist.json';
 
 describe('CycleSpanList - Smoke', () => {
@@ -27,22 +28,6 @@ describe('CycleSpanList - Render', () => {
 	afterEach(() => {
 		renderer.unmount();
 	});
-
-	const makeCycleData = (text, actions = null, conditions = null) => {
-		return {
-			actions: actions,
-			conditions: conditions,
-			text: text
-		};
-	}
-
-	const makeCycle = (cycleId, cycleIdx, ...data) => {
-		return {
-			cycle_id: cycleId,
-			cycle_idx: cycleIdx,
-			data: [...data]
-		}
-	}
 
 	const makeTextCycle = (text) => {
 		return makeCycle(null, null,

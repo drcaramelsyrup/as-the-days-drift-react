@@ -1,6 +1,7 @@
 import React from 'react';
 import CycleSpan from './CycleSpan';
-import { mergeActions, removeActions, matchesQuery, allExcept } from './InventoryUtils';
+import { matchesQuery } from './InventoryUtils';
+import { makeCycle, makeCycleData, updatedInventoryForCycle } from './CycleUtils';
 import './CycleSpanList.css';
 
 const CycleSpanList = (props) => {
@@ -156,45 +157,9 @@ const getValidCycleIdx = (cycleId, desiredIdx, cycleData, inventory) => {
 	return -1;
 }
 
-const makeCycle = (cycleId, cycleIdx, ...dataEntries) => {
-	return {
-		cycle_id: cycleId,
-		cycle_idx: cycleIdx,
-		data: [ ...dataEntries ]
-	};
-}
-
-const makeCycleData = (text, actions = null, conditions = null) => {
-	return {
-		actions: actions,
-		conditions: conditions,
-		text: text
-	};
-}
-
 // Returns false if string is empty, null, or undefined.
 const isValidString = (str) => {
 	return str && str.length > 0;
-}
-
-// Callback to return updated inventory when advancing cycle
-const handleNextCycle = (cycleId, nextCycleIdx, cycleData, inventory) => {
-	const oldCycles = inventory.cycles || {};
-	const currentCycleIdx = oldCycles.hasOwnProperty(cycleId)
-		? oldCycles[cycleId]
-		: 0;
-
-	const allExceptCycleId = allExcept(oldCycles, cycleId);
-	const newCycles = oldCycles.hasOwnProperty(cycleId)
-		? { ...allExceptCycleId, [cycleId]: nextCycleIdx }
-		: { ...oldCycles, [cycleId]: nextCycleIdx };
-
-	const newActions = mergeActions(
-		removeActions(inventory.actions, cycleData[currentCycleIdx].actions),
-		cycleData[nextCycleIdx].actions);
-
-	const { actions, cycles, ...otherInventory } = inventory;
-	return { ...otherInventory, cycles: newCycles, actions: newActions };
 }
 
 const cycleSpanUpdateFunction = (cycle, inventory, callback) => {
@@ -204,7 +169,7 @@ const cycleSpanUpdateFunction = (cycle, inventory, callback) => {
 		if (nextCycleIdx === cycle.cycle_idx)
 			return;
 
-		callback(handleNextCycle(
+		callback(updatedInventoryForCycle(
 			cycle.cycle_id, nextCycleIdx, cycle.data, inventory));
 	}
 }
