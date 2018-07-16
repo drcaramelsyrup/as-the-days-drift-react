@@ -4,7 +4,8 @@ import './App.css';
 import Passage from './Passage';
 import Background from './Background';
 import { Surface } from 'gl-react-dom';
-import { mergeActions } from './InventoryUtils';
+import { mergeActions, allExcept } from './InventoryUtils';
+import { getCycleSpansToRender, getCycleIdx } from './CycleUtils';
 
 /* Wishlist */
 // - ImmutableJS
@@ -39,11 +40,36 @@ class App extends Component {
 	}
 
 	advancePassage = (pid) => {
-		const { actions, ...inventory } = this.state.inventory;
+		const { cycles, actions } = this.state.inventory;
+
+		const mergedInventory = mergeActions(
+			allExcept(this.state.inventory, 'cycles', 'actions'),
+			actions
+		);
+
+		// TODO:
+		// This is such a kludge-y way to get the initial render.
+		// Really, the data should get processed in this level if we aren't going to use Redux.
+		const cycleSpans = getCycleSpansToRender(
+			this.getPassageData(pid), mergedInventory);
+		const initialActions = cycleSpans.reduce((acc, cycleSpan) => {
+			const { actions } = cycleSpan.data[
+				getCycleIdx(
+					cycleSpan.cycle_id, 
+					cycleSpan.data, 
+					mergedInventory
+				)
+			];
+			return mergeActions(acc, actions);
+		}, {});
 
 		this.setState({
 			pid: pid,
-			inventory: mergeActions(inventory, actions) 
+			inventory: {
+				...mergedInventory,
+				cycles: cycles,
+				actions: initialActions
+			}
 		});
 	}
 

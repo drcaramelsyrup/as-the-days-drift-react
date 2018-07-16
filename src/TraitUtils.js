@@ -23,11 +23,10 @@ const TRAIT_SCORE = {
 
 const pullTraits = (collection) => {
 	const collectionKeys = Object.keys(collection);
-	const traits = collectionKeys.filter((key) => {
-		return TRAITS.includes(key);
-	});
-	return traits.reduce((acc, trait) => {
-		return Object.assign({ [trait]: collection[trait] }, acc);
+	return TRAITS.reduce((acc, trait) => {
+		if (collectionKeys.includes(trait))
+			return Object.assign({ [trait]: collection[trait] }, acc);
+		return Object.assign({ [trait]: 0 }, acc);
 	}, {});
 }
 

@@ -9,8 +9,8 @@ describe('Traits', () => {
 			}, {});
 		const traits = pullTraits(inventory);
 		const pulledKeys = Object.keys(traits);
-		expect(pulledKeys).toEqual(TRAITS);
 		pulledKeys.forEach((key) => {
+			expect(TRAITS).toContain(key);
 			expect(inventory[key]).toEqual(traits[key]);
 		});
 	});

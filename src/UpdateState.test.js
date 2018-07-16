@@ -138,7 +138,7 @@ describe('App - UpdateState - advancePassage', () => {
 			inventory={ inventory } />);
 
 		app.instance().advancePassage(secondPid);
-		expect(app.state().inventory).toEqual(integratedInventory);
+		expect(app.state().inventory).toMatchObject(integratedInventory);
 	});
 
 });

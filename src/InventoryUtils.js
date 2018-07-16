@@ -66,9 +66,9 @@ const matchesQuery = (conditions, variablesToCheck) => {
 	}, true);
 }
 
-const allExcept = (inObject, excludedKey) => {
+const allExcept = (inObject, ...excludedKeys) => {
 	return Object.keys(inObject)
-		.filter(key => key !== excludedKey)
+		.filter(key => !excludedKeys.includes(key))
 		.reduce((acc, key) => { 
 			return { ...acc, [key]: inObject[key] }; 
 		}, {});
